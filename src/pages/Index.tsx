@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import CustomerForm from '../components/CustomerForm';
 import CustomerRecords from '../components/CustomerRecords';
@@ -26,15 +27,9 @@ const Index = () => {
     try {
       const savedRecord = saveCustomerRecord(record);
       loadRecords();
-      toast.success(`Customer record saved with ID: ${savedRecord.customerId}`, {
-        description: `${record.customerName}'s record has been successfully created`,
-        duration: 3000,
-      });
+      toast.success(`Customer record saved with ID: ${savedRecord.customerId}`);
     } catch (error) {
-      toast.error('Failed to save customer record', {
-        description: 'Please try again or contact support',
-        duration: 3000,
-      });
+      toast.error('Failed to save customer record');
     }
   };
 
@@ -42,32 +37,10 @@ const Index = () => {
     const customers = getCustomerByName(customerName);
     setSearchResults(customers);
     if (customers.length > 0) {
-      toast.success(`Found ${customers.length} customer(s) matching "${customerName}"`, {
-        description: `Search completed successfully`,
-        duration: 3000,
-      });
+      toast.success(`Found ${customers.length} customer(s) matching "${customerName}"`);
     } else {
-      toast.error('No customers found with that name', {
-        description: 'Try checking the spelling or using a different search term',
-        duration: 3000,
-      });
+      toast.error('No customers found with that name');
     }
-  };
-
-  const handleUpdateRecords = () => {
-    loadRecords();
-    // Also refresh search results if there are any
-    if (searchResults.length > 0) {
-      const lastSearchTerm = searchResults[0]?.customerName.split(' ')[0] || '';
-      if (lastSearchTerm) {
-        const updatedResults = getCustomerByName(lastSearchTerm);
-        setSearchResults(updatedResults);
-      }
-    }
-    toast.success('Records updated successfully!', {
-      description: 'All changes have been saved',
-      duration: 2000,
-    });
   };
 
   return (
@@ -122,11 +95,7 @@ const Index = () => {
                 </h2>
               </div>
               <div className="p-6 bg-gradient-to-br from-white to-orange-50/30">
-                <SearchCustomer 
-                  onSearch={handleSearchCustomer} 
-                  searchResults={searchResults} 
-                  onUpdate={handleUpdateRecords}
-                />
+                <SearchCustomer onSearch={handleSearchCustomer} searchResults={searchResults} />
               </div>
             </div>
           </div>
@@ -141,7 +110,7 @@ const Index = () => {
               </h2>
             </div>
             <div className="p-6 bg-gradient-to-br from-white to-yellow-50/30">
-              <CustomerRecords records={records} onUpdate={handleUpdateRecords} />
+              <CustomerRecords records={records} />
             </div>
           </div>
         </div>
