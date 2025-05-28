@@ -89,7 +89,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ onSave }) => {
           <Checkbox
             id="auto-id"
             checked={useAutoId}
-            onCheckedChange={setUseAutoId}
+            onCheckedChange={(checked) => setUseAutoId(!!checked)}
           />
           <Label htmlFor="auto-id" className="text-sm font-medium">
             Auto-generate Customer ID
