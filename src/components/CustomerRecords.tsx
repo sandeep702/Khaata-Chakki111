@@ -56,9 +56,14 @@ const CustomerRecords: React.FC<CustomerRecordsProps> = ({ records }) => {
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm flex justify-between items-center">
                   <span className="text-amber-800">ID: {record.customerId}</span>
-                  <Badge variant={record.isReady ? 'default' : 'secondary'}>
-                    {record.isReady ? '✓ Ready' : '⏳ Processing'}
-                  </Badge>
+                  <div className="flex gap-2">
+                    <Badge variant={record.customerType === 'Permanent' ? 'default' : 'secondary'}>
+                      {record.customerType}
+                    </Badge>
+                    <Badge variant={record.isReady ? 'default' : 'secondary'}>
+                      {record.isReady ? '✓ Ready' : '⏳ Processing'}
+                    </Badge>
+                  </div>
                 </CardTitle>
               </CardHeader>
               <CardContent className="pt-0">
@@ -66,10 +71,6 @@ const CustomerRecords: React.FC<CustomerRecordsProps> = ({ records }) => {
                   <div>
                     <span className="font-medium">Customer:</span>
                     <p className="truncate">{record.customerName}</p>
-                  </div>
-                  <div>
-                    <span className="font-medium">Owner:</span>
-                    <p className="truncate">{record.ownerName}</p>
                   </div>
                   <div>
                     <span className="font-medium">Weight:</span>
@@ -103,6 +104,7 @@ const CustomerRecords: React.FC<CustomerRecordsProps> = ({ records }) => {
               <tr>
                 <th className="border border-amber-200 p-2 text-left">ID</th>
                 <th className="border border-amber-200 p-2 text-left">Customer</th>
+                <th className="border border-amber-200 p-2 text-left">Type</th>
                 <th className="border border-amber-200 p-2 text-left">Weight</th>
                 <th className="border border-amber-200 p-2 text-left">Flour</th>
                 <th className="border border-amber-200 p-2 text-left">Rate</th>
@@ -116,6 +118,11 @@ const CustomerRecords: React.FC<CustomerRecordsProps> = ({ records }) => {
                 <tr key={record.customerId} className="hover:bg-amber-50">
                   <td className="border border-amber-200 p-2">{record.customerId}</td>
                   <td className="border border-amber-200 p-2">{record.customerName}</td>
+                  <td className="border border-amber-200 p-2">
+                    <Badge variant={record.customerType === 'Permanent' ? 'default' : 'secondary'}>
+                      {record.customerType}
+                    </Badge>
+                  </td>
                   <td className="border border-amber-200 p-2">{record.wheatWeight} kg</td>
                   <td className="border border-amber-200 p-2">{record.flourType}</td>
                   <td className="border border-amber-200 p-2">₹{record.ratePerKg}</td>

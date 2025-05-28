@@ -1,8 +1,8 @@
 
 export interface CustomerRecord {
-  customerId: string;
+  customerId: number;
   customerName: string;
-  ownerName: string;
+  customerType: 'Permanent' | 'Temporary';
   wheatWeight: number;
   flourType: 'Atta' | 'Maida' | 'Besan' | 'Multigrain' | 'Other';
   ratePerKg: number;
@@ -14,9 +14,8 @@ export interface CustomerRecord {
 }
 
 export interface CustomerFormData {
-  customerId?: string;
   customerName: string;
-  ownerName: string;
+  customerType: 'Permanent' | 'Temporary';
   wheatWeight: string;
   flourType: 'Atta' | 'Maida' | 'Besan' | 'Multigrain' | 'Other';
   ratePerKg: string;

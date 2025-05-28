@@ -3,11 +3,23 @@ import { CustomerRecord } from '../types/Customer';
 
 const STORAGE_KEY = 'wheatStore_customerRecords';
 
-export const saveCustomerRecord = (record: CustomerRecord): void => {
+const getNextCustomerId = (): number => {
+  const records = getAllCustomerRecords();
+  if (records.length === 0) return 1;
+  const maxId = Math.max(...records.map(record => record.customerId));
+  return maxId + 1;
+};
+
+export const saveCustomerRecord = (record: Omit<CustomerRecord, 'customerId'>): CustomerRecord => {
   try {
     const existingRecords = getAllCustomerRecords();
-    const updatedRecords = [...existingRecords, record];
+    const newRecord: CustomerRecord = {
+      ...record,
+      customerId: getNextCustomerId(),
+    };
+    const updatedRecords = [...existingRecords, newRecord];
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedRecords));
+    return newRecord;
   } catch (error) {
     console.error('Error saving customer record:', error);
     throw new Error('Failed to save customer record');
@@ -24,17 +36,19 @@ export const getAllCustomerRecords = (): CustomerRecord[] => {
   }
 };
 
-export const getCustomerById = (customerId: string): CustomerRecord | null => {
+export const getCustomerByName = (customerName: string): CustomerRecord[] => {
   try {
     const records = getAllCustomerRecords();
-    return records.find(record => record.customerId === customerId) || null;
+    return records.filter(record => 
+      record.customerName.toLowerCase().includes(customerName.toLowerCase())
+    );
   } catch (error) {
     console.error('Error searching customer:', error);
-    return null;
+    return [];
   }
 };
 
-export const updateCustomerRecord = (customerId: string, updatedRecord: CustomerRecord): boolean => {
+export const updateCustomerRecord = (customerId: number, updatedRecord: CustomerRecord): boolean => {
   try {
     const records = getAllCustomerRecords();
     const index = records.findIndex(record => record.customerId === customerId);
@@ -51,7 +65,7 @@ export const updateCustomerRecord = (customerId: string, updatedRecord: Customer
   }
 };
 
-export const deleteCustomerRecord = (customerId: string): boolean => {
+export const deleteCustomerRecord = (customerId: number): boolean => {
   try {
     const records = getAllCustomerRecords();
     const filteredRecords = records.filter(record => record.customerId !== customerId);
@@ -60,5 +74,15 @@ export const deleteCustomerRecord = (customerId: string): boolean => {
   } catch (error) {
     console.error('Error deleting customer record:', error);
     return false;
+  }
+};
+
+export const getTotalRevenue = (): number => {
+  try {
+    const records = getAllCustomerRecords();
+    return records.reduce((total, record) => total + record.totalPrice, 0);
+  } catch (error) {
+    console.error('Error calculating total revenue:', error);
+    return 0;
   }
 };

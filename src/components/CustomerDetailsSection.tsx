@@ -2,19 +2,20 @@
 import React from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface CustomerDetailsSectionProps {
   customerName: string;
   setCustomerName: (value: string) => void;
-  ownerName: string;
-  setOwnerName: (value: string) => void;
+  customerType: 'Permanent' | 'Temporary';
+  setCustomerType: (value: 'Permanent' | 'Temporary') => void;
 }
 
 const CustomerDetailsSection: React.FC<CustomerDetailsSectionProps> = ({
   customerName,
   setCustomerName,
-  ownerName,
-  setOwnerName,
+  customerType,
+  setCustomerType,
 }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -30,14 +31,19 @@ const CustomerDetailsSection: React.FC<CustomerDetailsSectionProps> = ({
       </div>
       
       <div>
-        <Label htmlFor="ownerName">Owner Name *</Label>
-        <Input
-          id="ownerName"
-          value={ownerName}
-          onChange={(e) => setOwnerName(e.target.value)}
-          required
-          className="border-amber-200 focus:border-amber-400"
-        />
+        <Label htmlFor="customerType">Customer Type</Label>
+        <Select
+          value={customerType}
+          onValueChange={(value: any) => setCustomerType(value)}
+        >
+          <SelectTrigger className="border-amber-200 focus:border-amber-400">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Permanent">Permanent</SelectItem>
+            <SelectItem value="Temporary">Temporary</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
     </div>
   );

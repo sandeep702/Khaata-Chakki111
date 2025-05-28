@@ -3,13 +3,15 @@ import React, { useState, useEffect } from 'react';
 import CustomerForm from '../components/CustomerForm';
 import CustomerRecords from '../components/CustomerRecords';
 import SearchCustomer from '../components/SearchCustomer';
+import AmountSection from '../components/AmountSection';
 import { CustomerRecord } from '../types/Customer';
-import { saveCustomerRecord, getAllCustomerRecords, getCustomerById } from '../utils/storage';
+import { saveCustomerRecord, getAllCustomerRecords, getCustomerByName, getTotalRevenue } from '../utils/storage';
 import { toast } from 'sonner';
 
 const Index = () => {
   const [records, setRecords] = useState<CustomerRecord[]>([]);
-  const [selectedCustomer, setSelectedCustomer] = useState<CustomerRecord | null>(null);
+  const [searchResults, setSearchResults] = useState<CustomerRecord[]>([]);
+  const [totalRevenue, setTotalRevenue] = useState(0);
 
   useEffect(() => {
     loadRecords();
@@ -18,26 +20,26 @@ const Index = () => {
   const loadRecords = () => {
     const allRecords = getAllCustomerRecords();
     setRecords(allRecords);
+    setTotalRevenue(getTotalRevenue());
   };
 
-  const handleSaveRecord = (record: CustomerRecord) => {
+  const handleSaveRecord = (record: Omit<CustomerRecord, 'customerId'>) => {
     try {
-      saveCustomerRecord(record);
+      const savedRecord = saveCustomerRecord(record);
       loadRecords();
-      toast.success('Customer record saved successfully!');
+      toast.success(`Customer record saved with ID: ${savedRecord.customerId}`);
     } catch (error) {
       toast.error('Failed to save customer record');
     }
   };
 
-  const handleSearchCustomer = (customerId: string) => {
-    const customer = getCustomerById(customerId);
-    if (customer) {
-      setSelectedCustomer(customer);
-      toast.success('Customer found!');
+  const handleSearchCustomer = (customerName: string) => {
+    const customers = getCustomerByName(customerName);
+    setSearchResults(customers);
+    if (customers.length > 0) {
+      toast.success(`Found ${customers.length} customer(s) matching "${customerName}"`);
     } else {
-      setSelectedCustomer(null);
-      toast.error('Customer not found');
+      toast.error('No customers found with that name');
     }
   };
 
@@ -74,7 +76,7 @@ const Index = () => {
                 <h2 className="text-xl font-semibold text-white">Search Customer</h2>
               </div>
               <div className="p-6">
-                <SearchCustomer onSearch={handleSearchCustomer} selectedCustomer={selectedCustomer} />
+                <SearchCustomer onSearch={handleSearchCustomer} searchResults={searchResults} />
               </div>
             </div>
           </div>
@@ -87,6 +89,16 @@ const Index = () => {
             <div className="p-6">
               <CustomerRecords records={records} />
             </div>
+          </div>
+        </div>
+
+        {/* Amount Section */}
+        <div className="bg-white rounded-xl shadow-lg border border-amber-200 overflow-hidden">
+          <div className="bg-gradient-to-r from-green-600 to-emerald-600 px-6 py-4">
+            <h2 className="text-xl font-semibold text-white">Revenue & Transactions</h2>
+          </div>
+          <div className="p-6">
+            <AmountSection records={records} totalRevenue={totalRevenue} />
           </div>
         </div>
       </div>
