@@ -75,7 +75,7 @@ const AmountSection: React.FC<AmountSectionProps> = ({ records, totalRevenue }) 
                     <div className="flex items-center gap-2">
                       <span className="font-medium">ID: {record.customerId}</span>
                       <span className="text-sm text-gray-600">- {record.customerName}</span>
-                      <Badge variant={record.customerType === 'Permanent' ? 'default' : 'secondary'} className="text-xs">
+                      <Badge variant={record.customerType === 'Regular' ? 'default' : 'secondary'} className="text-xs">
                         {record.customerType}
                       </Badge>
                     </div>
