@@ -7,10 +7,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 interface WheatFlourSectionProps {
   wheatWeight: string;
   setWheatWeight: (value: string) => void;
-  flourType: 'Atta' | 'Maida' | 'Besan' | 'Multigrain' | 'Other';
-  setFlourType: (value: 'Atta' | 'Maida' | 'Besan' | 'Multigrain' | 'Other') => void;
-  ratePerKg: string;
-  setRatePerKg: (value: string) => void;
+  flourType: 'Atta' | 'Besan' | 'Multigrain' | 'Other';
+  setFlourType: (value: 'Atta' | 'Besan' | 'Multigrain' | 'Other') => void;
   totalPrice: number;
 }
 
@@ -19,8 +17,6 @@ const WheatFlourSection: React.FC<WheatFlourSectionProps> = ({
   setWheatWeight,
   flourType,
   setFlourType,
-  ratePerKg,
-  setRatePerKg,
   totalPrice,
 }) => {
   return (
@@ -56,7 +52,6 @@ const WheatFlourSection: React.FC<WheatFlourSectionProps> = ({
             </SelectTrigger>
             <SelectContent className="bg-white border-2 border-amber-200 rounded-lg shadow-lg">
               <SelectItem value="Atta" className="hover:bg-amber-50 transition-colors">🌾 Atta</SelectItem>
-              <SelectItem value="Maida" className="hover:bg-amber-50 transition-colors">⚪ Maida</SelectItem>
               <SelectItem value="Besan" className="hover:bg-amber-50 transition-colors">🟡 Besan</SelectItem>
               <SelectItem value="Multigrain" className="hover:bg-amber-50 transition-colors">🌿 Multigrain</SelectItem>
               <SelectItem value="Other" className="hover:bg-amber-50 transition-colors">📦 Other</SelectItem>
@@ -65,20 +60,13 @@ const WheatFlourSection: React.FC<WheatFlourSectionProps> = ({
         </div>
         
         <div className="group">
-          <Label htmlFor="ratePerKg" className="text-amber-800 font-semibold mb-2 block group-hover:text-amber-900 transition-colors">
-            Rate per Kg (₹) *
+          <Label className="text-amber-800 font-semibold mb-2 block group-hover:text-amber-900 transition-colors">
+            Rate per Kg (₹)
           </Label>
-          <Input
-            id="ratePerKg"
-            type="number"
-            step="0.01"
-            min="0"
-            value={ratePerKg}
-            onChange={(e) => setRatePerKg(e.target.value)}
-            required
-            className="border-2 border-amber-200 focus:border-amber-500 hover:border-amber-400 transition-colors duration-200 rounded-lg shadow-sm focus:shadow-md"
-            placeholder="0.00"
-          />
+          <div className="border-2 border-green-300 bg-green-50 rounded-lg p-3 text-center">
+            <span className="text-2xl font-bold text-green-700">₹2.00</span>
+            <p className="text-xs text-green-600">Fixed Rate</p>
+          </div>
         </div>
       </div>
 

@@ -7,8 +7,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 interface CustomerDetailsSectionProps {
   customerName: string;
   setCustomerName: (value: string) => void;
-  customerType: 'Permanent' | 'Temporary';
-  setCustomerType: (value: 'Permanent' | 'Temporary') => void;
+  customerType: 'Regular' | 'Temporary';
+  setCustomerType: (value: 'Regular' | 'Temporary') => void;
 }
 
 const CustomerDetailsSection: React.FC<CustomerDetailsSectionProps> = ({
@@ -45,10 +45,10 @@ const CustomerDetailsSection: React.FC<CustomerDetailsSectionProps> = ({
             <SelectValue />
           </SelectTrigger>
           <SelectContent className="bg-white border-2 border-amber-200 rounded-lg shadow-lg">
-            <SelectItem value="Permanent" className="hover:bg-amber-50 transition-colors">
+            <SelectItem value="Regular" className="hover:bg-amber-50 transition-colors">
               <span className="flex items-center gap-2">
                 <span className="text-green-600">👤</span>
-                Permanent
+                Regular
               </span>
             </SelectItem>
             <SelectItem value="Temporary" className="hover:bg-amber-50 transition-colors">

@@ -5,6 +5,7 @@ import { CustomerRecord, CustomerFormData } from '../types/Customer';
 import CustomerDetailsSection from './CustomerDetailsSection';
 import WheatFlourSection from './WheatFlourSection';
 import PaymentSection from './PaymentSection';
+import ItemReadySection from './ItemReadySection';
 
 interface CustomerFormProps {
   onSave: (record: Omit<CustomerRecord, 'customerId'>) => void;
@@ -16,7 +17,6 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ onSave }) => {
     customerType: 'Temporary',
     wheatWeight: '',
     flourType: 'Atta',
-    ratePerKg: '',
     paymentMethod: 'Cash',
     isReady: false,
   });
@@ -25,14 +25,14 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ onSave }) => {
 
   useEffect(() => {
     const weight = parseFloat(formData.wheatWeight) || 0;
-    const rate = parseFloat(formData.ratePerKg) || 0;
-    setTotalPrice(weight * rate);
-  }, [formData.wheatWeight, formData.ratePerKg]);
+    const fixedRate = 2; // Fixed rate at ₹2
+    setTotalPrice(weight * fixedRate);
+  }, [formData.wheatWeight]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.customerName.trim() || !formData.wheatWeight || !formData.ratePerKg) {
+    if (!formData.customerName.trim() || !formData.wheatWeight) {
       alert('Please fill in all required fields');
       return;
     }
@@ -42,7 +42,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ onSave }) => {
       customerType: formData.customerType,
       wheatWeight: parseFloat(formData.wheatWeight),
       flourType: formData.flourType,
-      ratePerKg: parseFloat(formData.ratePerKg),
+      ratePerKg: 2, // Fixed rate
       totalPrice,
       paymentMethod: formData.paymentMethod,
       paymentStatus: formData.paymentMethod === 'Cash' ? 'Paid' : 'Pending',
@@ -60,7 +60,6 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ onSave }) => {
       customerType: 'Temporary',
       wheatWeight: '',
       flourType: 'Atta',
-      ratePerKg: '',
       paymentMethod: 'Cash',
       isReady: false,
     });
@@ -68,6 +67,13 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ onSave }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="transform hover:scale-[1.01] transition-transform duration-200">
+        <ItemReadySection
+          isReady={formData.isReady}
+          setIsReady={(value: boolean) => setFormData({ ...formData, isReady: value })}
+        />
+      </div>
+
       <div className="transform hover:scale-[1.01] transition-transform duration-200">
         <CustomerDetailsSection
           customerName={formData.customerName}
@@ -83,8 +89,6 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ onSave }) => {
           setWheatWeight={(value) => setFormData({ ...formData, wheatWeight: value })}
           flourType={formData.flourType}
           setFlourType={(value) => setFormData({ ...formData, flourType: value })}
-          ratePerKg={formData.ratePerKg}
-          setRatePerKg={(value) => setFormData({ ...formData, ratePerKg: value })}
           totalPrice={totalPrice}
         />
       </div>
@@ -93,8 +97,6 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ onSave }) => {
         <PaymentSection
           paymentMethod={formData.paymentMethod}
           setPaymentMethod={(value) => setFormData({ ...formData, paymentMethod: value })}
-          isReady={formData.isReady}
-          setIsReady={(value: boolean) => setFormData({ ...formData, isReady: value })}
         />
       </div>
 

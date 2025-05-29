@@ -2,9 +2,9 @@
 export interface CustomerRecord {
   customerId: number;
   customerName: string;
-  customerType: 'Permanent' | 'Temporary';
+  customerType: 'Regular' | 'Temporary';
   wheatWeight: number;
-  flourType: 'Atta' | 'Maida' | 'Besan' | 'Multigrain' | 'Other';
+  flourType: 'Atta' | 'Besan' | 'Multigrain' | 'Other';
   ratePerKg: number;
   totalPrice: number;
   paymentMethod: 'Cash' | 'Borrow';
@@ -15,10 +15,9 @@ export interface CustomerRecord {
 
 export interface CustomerFormData {
   customerName: string;
-  customerType: 'Permanent' | 'Temporary';
+  customerType: 'Regular' | 'Temporary';
   wheatWeight: string;
-  flourType: 'Atta' | 'Maida' | 'Besan' | 'Multigrain' | 'Other';
-  ratePerKg: string;
+  flourType: 'Atta' | 'Besan' | 'Multigrain' | 'Other';
   paymentMethod: 'Cash' | 'Borrow';
   isReady: boolean;
 }

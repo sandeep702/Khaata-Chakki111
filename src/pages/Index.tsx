@@ -1,10 +1,11 @@
+
 import React, { useState, useEffect } from 'react';
 import CustomerForm from '../components/CustomerForm';
 import CustomerRecords from '../components/CustomerRecords';
 import SearchCustomer from '../components/SearchCustomer';
 import AmountSection from '../components/AmountSection';
 import { CustomerRecord } from '../types/Customer';
-import { saveCustomerRecord, getAllCustomerRecords, getCustomerByName, getTotalRevenue } from '../utils/storage';
+import { saveCustomerRecord, getAllCustomerRecords, getCustomerByNameOrId, getTotalRevenue } from '../utils/storage';
 import { toast } from 'sonner';
 
 const Index = () => {
@@ -26,10 +27,23 @@ const Index = () => {
     try {
       const savedRecord = saveCustomerRecord(record);
       loadRecords();
-      toast.success(`Customer record saved with ID: ${savedRecord.customerId}`, {
-        description: `${record.customerName}'s record has been successfully created`,
-        duration: 3000,
-      });
+      
+      // Check if this customer name already existed
+      const existingCustomers = getAllCustomerRecords().filter(r => 
+        r.customerName.toLowerCase() === record.customerName.toLowerCase() && r.customerId === savedRecord.customerId
+      );
+      
+      if (existingCustomers.length > 1) {
+        toast.success(`Customer record saved under existing ID: ${savedRecord.customerId}`, {
+          description: `${record.customerName} already exists, so using same Customer ID`,
+          duration: 3000,
+        });
+      } else {
+        toast.success(`New customer record created with ID: ${savedRecord.customerId}`, {
+          description: `${record.customerName}'s record has been successfully created`,
+          duration: 3000,
+        });
+      }
     } catch (error) {
       toast.error('Failed to save customer record', {
         description: 'Please try again or contact support',
@@ -38,17 +52,17 @@ const Index = () => {
     }
   };
 
-  const handleSearchCustomer = (customerName: string) => {
-    const customers = getCustomerByName(customerName);
+  const handleSearchCustomer = (searchTerm: string) => {
+    const customers = getCustomerByNameOrId(searchTerm);
     setSearchResults(customers);
     if (customers.length > 0) {
-      toast.success(`Found ${customers.length} customer(s) matching "${customerName}"`, {
+      toast.success(`Found ${customers.length} exact match(es) for "${searchTerm}"`, {
         description: `Search completed successfully`,
         duration: 3000,
       });
     } else {
-      toast.error('No customers found with that name', {
-        description: 'Try checking the spelling or using a different search term',
+      toast.error('No exact matches found', {
+        description: 'Try searching with the exact customer name or ID',
         duration: 3000,
       });
     }
@@ -58,9 +72,9 @@ const Index = () => {
     loadRecords();
     // Also refresh search results if there are any
     if (searchResults.length > 0) {
-      const lastSearchTerm = searchResults[0]?.customerName.split(' ')[0] || '';
+      const lastSearchTerm = searchResults[0]?.customerName || searchResults[0]?.customerId?.toString() || '';
       if (lastSearchTerm) {
-        const updatedResults = getCustomerByName(lastSearchTerm);
+        const updatedResults = getCustomerByNameOrId(lastSearchTerm);
         setSearchResults(updatedResults);
       }
     }

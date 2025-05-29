@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { CustomerRecord } from '../types/Customer';
-import { Edit, Eye, LayoutGrid, List } from 'lucide-react';
+import { Edit, LayoutGrid, List } from 'lucide-react';
 import EditCustomerDialog from './EditCustomerDialog';
 
 interface CustomerRecordsProps {
@@ -83,9 +83,9 @@ const CustomerRecords: React.FC<CustomerRecordsProps> = ({ records, onUpdate }) 
       {/* Records Display */}
       {viewMode === 'cards' ? (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-h-96 overflow-y-auto pr-2">
-          {records.slice().reverse().map((record) => (
+          {records.slice().reverse().map((record, index) => (
             <Card 
-              key={record.customerId} 
+              key={`${record.customerId}-${index}`} 
               className="border-l-4 border-l-amber-500 hover:shadow-lg transition-all duration-300 hover:scale-[1.02] bg-gradient-to-r from-white to-amber-50/30"
             >
               <CardHeader className="pb-3">
@@ -114,8 +114,8 @@ const CustomerRecords: React.FC<CustomerRecordsProps> = ({ records, onUpdate }) 
               <CardContent className="pt-0">
                 <div className="space-y-3">
                   <div className="flex gap-2 flex-wrap">
-                    <Badge variant={record.customerType === 'Permanent' ? 'default' : 'secondary'} className="text-xs">
-                      {record.customerType === 'Permanent' ? '👤' : '⏰'} {record.customerType}
+                    <Badge variant={record.customerType === 'Regular' ? 'default' : 'secondary'} className="text-xs">
+                      {record.customerType === 'Regular' ? '👤' : '⏰'} {record.customerType}
                     </Badge>
                     <Badge 
                       variant={record.isReady ? 'default' : 'secondary'} 
@@ -169,13 +169,13 @@ const CustomerRecords: React.FC<CustomerRecordsProps> = ({ records, onUpdate }) 
               </tr>
             </thead>
             <tbody>
-              {records.slice().reverse().map((record) => (
-                <tr key={record.customerId} className="hover:bg-amber-50 transition-colors duration-200">
+              {records.slice().reverse().map((record, index) => (
+                <tr key={`${record.customerId}-${index}`} className="hover:bg-amber-50 transition-colors duration-200">
                   <td className="border border-amber-200 p-3 font-bold text-amber-700">{record.customerId}</td>
                   <td className="border border-amber-200 p-3 font-medium">{record.customerName}</td>
                   <td className="border border-amber-200 p-3">
-                    <Badge variant={record.customerType === 'Permanent' ? 'default' : 'secondary'} className="text-xs">
-                      {record.customerType === 'Permanent' ? '👤' : '⏰'} {record.customerType}
+                    <Badge variant={record.customerType === 'Regular' ? 'default' : 'secondary'} className="text-xs">
+                      {record.customerType === 'Regular' ? '👤' : '⏰'} {record.customerType}
                     </Badge>
                   </td>
                   <td className="border border-amber-200 p-3 font-medium">{record.wheatWeight} kg</td>

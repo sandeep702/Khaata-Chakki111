@@ -32,7 +32,14 @@ const EditCustomerDialog: React.FC<EditCustomerDialogProps> = ({
   if (!editData) return null;
 
   const handleSave = () => {
-    const success = updateCustomerRecord(editData.customerId, editData);
+    // Ensure rate stays fixed and recalculate total
+    const updatedRecord = {
+      ...editData,
+      ratePerKg: 2,
+      totalPrice: editData.wheatWeight * 2
+    };
+    
+    const success = updateCustomerRecord(editData.customerId, updatedRecord);
     if (success) {
       toast.success('Customer record updated successfully!');
       onUpdate();
@@ -82,7 +89,7 @@ const EditCustomerDialog: React.FC<EditCustomerDialogProps> = ({
             </Label>
             <Select
               value={editData.customerType}
-              onValueChange={(value: 'Permanent' | 'Temporary') => 
+              onValueChange={(value: 'Regular' | 'Temporary') => 
                 setEditData({ ...editData, customerType: value })
               }
             >
@@ -90,10 +97,10 @@ const EditCustomerDialog: React.FC<EditCustomerDialogProps> = ({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Permanent">
+                <SelectItem value="Regular">
                   <span className="flex items-center gap-2">
                     <span className="text-green-600">👤</span>
-                    Permanent
+                    Regular
                   </span>
                 </SelectItem>
                 <SelectItem value="Temporary">
@@ -132,7 +139,6 @@ const EditCustomerDialog: React.FC<EditCustomerDialogProps> = ({
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="Atta">🌾 Atta</SelectItem>
-                <SelectItem value="Maida">🍞 Maida</SelectItem>
                 <SelectItem value="Besan">🟡 Besan</SelectItem>
                 <SelectItem value="Multigrain">🌿 Multigrain</SelectItem>
                 <SelectItem value="Other">🔄 Other</SelectItem>
@@ -141,16 +147,12 @@ const EditCustomerDialog: React.FC<EditCustomerDialogProps> = ({
           </div>
 
           <div className="group">
-            <Label htmlFor="ratePerKg" className="text-amber-800 font-semibold mb-2 block">
-              Rate per Kg (₹) *
+            <Label className="text-amber-800 font-semibold mb-2 block">
+              Rate per Kg (₹)
             </Label>
-            <Input
-              id="ratePerKg"
-              type="number"
-              value={editData.ratePerKg}
-              onChange={(e) => setEditData({ ...editData, ratePerKg: parseFloat(e.target.value) || 0 })}
-              className="border-2 border-amber-200 focus:border-amber-500 transition-colors"
-            />
+            <div className="text-2xl font-bold text-green-600 bg-green-50 p-3 rounded-lg border-2 border-green-200">
+              ₹2.00 (Fixed)
+            </div>
           </div>
 
           <div className="group">
@@ -158,7 +160,7 @@ const EditCustomerDialog: React.FC<EditCustomerDialogProps> = ({
               Total Price
             </Label>
             <div className="text-2xl font-bold text-green-600 bg-green-50 p-3 rounded-lg border-2 border-green-200">
-              ₹{(editData.wheatWeight * editData.ratePerKg).toFixed(2)}
+              ₹{(editData.wheatWeight * 2).toFixed(2)}
             </div>
           </div>
 

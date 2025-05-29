@@ -3,6 +3,14 @@ import { CustomerRecord } from '../types/Customer';
 
 const STORAGE_KEY = 'wheatStore_customerRecords';
 
+const getExistingCustomerIdByName = (customerName: string): number | null => {
+  const records = getAllCustomerRecords();
+  const existingCustomer = records.find(record => 
+    record.customerName.toLowerCase() === customerName.toLowerCase()
+  );
+  return existingCustomer ? existingCustomer.customerId : null;
+};
+
 const getNextCustomerId = (): number => {
   const records = getAllCustomerRecords();
   if (records.length === 0) return 1;
@@ -13,10 +21,15 @@ const getNextCustomerId = (): number => {
 export const saveCustomerRecord = (record: Omit<CustomerRecord, 'customerId'>): CustomerRecord => {
   try {
     const existingRecords = getAllCustomerRecords();
+    const existingId = getExistingCustomerIdByName(record.customerName);
+    
     const newRecord: CustomerRecord = {
       ...record,
-      customerId: getNextCustomerId(),
+      customerId: existingId || getNextCustomerId(),
+      ratePerKg: 2, // Fixed rate at ₹2
+      totalPrice: (parseFloat(record.wheatWeight.toString()) || 0) * 2,
     };
+    
     const updatedRecords = [...existingRecords, newRecord];
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedRecords));
     return newRecord;
@@ -36,12 +49,20 @@ export const getAllCustomerRecords = (): CustomerRecord[] => {
   }
 };
 
-export const getCustomerByName = (customerName: string): CustomerRecord[] => {
+export const getCustomerByNameOrId = (searchTerm: string): CustomerRecord[] => {
   try {
     const records = getAllCustomerRecords();
-    return records.filter(record => 
-      record.customerName.toLowerCase().includes(customerName.toLowerCase())
-    );
+    const searchTermLower = searchTerm.toLowerCase().trim();
+    const searchAsNumber = parseInt(searchTerm);
+    
+    return records.filter(record => {
+      // Exact name match
+      const nameMatch = record.customerName.toLowerCase() === searchTermLower;
+      // Exact ID match
+      const idMatch = !isNaN(searchAsNumber) && record.customerId === searchAsNumber;
+      
+      return nameMatch || idMatch;
+    });
   } catch (error) {
     console.error('Error searching customer:', error);
     return [];
@@ -54,7 +75,13 @@ export const updateCustomerRecord = (customerId: number, updatedRecord: Customer
     const index = records.findIndex(record => record.customerId === customerId);
     
     if (index !== -1) {
-      records[index] = updatedRecord;
+      // Ensure rate stays fixed at ₹2 and recalculate total
+      const recordWithFixedRate = {
+        ...updatedRecord,
+        ratePerKg: 2,
+        totalPrice: updatedRecord.wheatWeight * 2
+      };
+      records[index] = recordWithFixedRate;
       localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
       return true;
     }

@@ -10,28 +10,24 @@ import { Search, Edit, AlertCircle } from 'lucide-react';
 import EditCustomerDialog from './EditCustomerDialog';
 
 interface SearchCustomerProps {
-  onSearch: (customerName: string) => void;
+  onSearch: (searchTerm: string) => void;
   searchResults: CustomerRecord[];
   onUpdate: () => void;
 }
 
 const SearchCustomer: React.FC<SearchCustomerProps> = ({ onSearch, searchResults, onUpdate }) => {
-  const [searchName, setSearchName] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
   const [searchError, setSearchError] = useState('');
   const [editingCustomer, setEditingCustomer] = useState<CustomerRecord | null>(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
-  const validateSearch = (name: string): boolean => {
-    if (!name.trim()) {
-      setSearchError('Please enter a customer name to search');
+  const validateSearch = (term: string): boolean => {
+    if (!term.trim()) {
+      setSearchError('Please enter a customer name or ID to search');
       return false;
     }
-    if (name.trim().length < 2) {
-      setSearchError('Customer name must be at least 2 characters long');
-      return false;
-    }
-    if (!/^[a-zA-Z\s]+$/.test(name.trim())) {
-      setSearchError('Customer name can only contain letters and spaces');
+    if (term.trim().length < 1) {
+      setSearchError('Search term must be at least 1 character long');
       return false;
     }
     setSearchError('');
@@ -40,8 +36,8 @@ const SearchCustomer: React.FC<SearchCustomerProps> = ({ onSearch, searchResults
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (validateSearch(searchName)) {
-      onSearch(searchName.trim());
+    if (validateSearch(searchTerm)) {
+      onSearch(searchTerm.trim());
     }
   };
 
@@ -65,13 +61,13 @@ const SearchCustomer: React.FC<SearchCustomerProps> = ({ onSearch, searchResults
       <form onSubmit={handleSearch} className="space-y-4">
         <div className="flex gap-3">
           <div className="flex-1">
-            <Label htmlFor="searchName" className="sr-only">Customer Name</Label>
+            <Label htmlFor="searchTerm" className="sr-only">Customer Name or ID</Label>
             <Input
-              id="searchName"
-              placeholder="Enter Customer Name to search..."
-              value={searchName}
+              id="searchTerm"
+              placeholder="Enter Customer Name or ID (exact match)..."
+              value={searchTerm}
               onChange={(e) => {
-                setSearchName(e.target.value);
+                setSearchTerm(e.target.value);
                 if (searchError) validateSearch(e.target.value);
               }}
               className={`border-2 transition-all duration-200 ${
@@ -112,7 +108,7 @@ const SearchCustomer: React.FC<SearchCustomerProps> = ({ onSearch, searchResults
           
           {searchResults.map((customer) => (
             <Card 
-              key={customer.customerId} 
+              key={`${customer.customerId}-${customer.createdAt}`} 
               className="border-2 border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50 hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-amber-300"
             >
               <CardContent className="p-6">
@@ -139,8 +135,8 @@ const SearchCustomer: React.FC<SearchCustomerProps> = ({ onSearch, searchResults
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                   <div className="bg-white p-3 rounded-lg shadow-sm">
                     <span className="font-semibold text-amber-800 block">Type:</span>
-                    <Badge variant={customer.customerType === 'Permanent' ? 'default' : 'secondary'} className="mt-1">
-                      {customer.customerType === 'Permanent' ? '👤' : '⏰'} {customer.customerType}
+                    <Badge variant={customer.customerType === 'Regular' ? 'default' : 'secondary'} className="mt-1">
+                      {customer.customerType === 'Regular' ? '👤' : '⏰'} {customer.customerType}
                     </Badge>
                   </div>
                   
@@ -202,11 +198,11 @@ const SearchCustomer: React.FC<SearchCustomerProps> = ({ onSearch, searchResults
         </div>
       )}
 
-      {searchName && searchResults.length === 0 && !searchError && (
+      {searchTerm && searchResults.length === 0 && !searchError && (
         <div className="text-center py-8 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 animate-fade-in">
           <div className="text-4xl mb-2">😕</div>
-          <p className="text-gray-600 font-medium">No customers found with the name "{searchName}"</p>
-          <p className="text-gray-500 text-sm mt-1">Try checking the spelling or using a different search term</p>
+          <p className="text-gray-600 font-medium">No exact matches found for "{searchTerm}"</p>
+          <p className="text-gray-500 text-sm mt-1">Try searching with the exact customer name or ID</p>
         </div>
       )}
 
