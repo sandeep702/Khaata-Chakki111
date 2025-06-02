@@ -4,8 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { CustomerRecord } from '../types/Customer';
-import { Edit, LayoutGrid, List } from 'lucide-react';
+import { Edit, LayoutGrid, List, Trash2, Calendar } from 'lucide-react';
 import EditCustomerDialog from './EditCustomerDialog';
+import { deleteCustomerRecord } from '../utils/storage';
+import { toast } from 'sonner';
 
 interface CustomerRecordsProps {
   records: CustomerRecord[];
@@ -20,6 +22,35 @@ const CustomerRecords: React.FC<CustomerRecordsProps> = ({ records, onUpdate }) 
   const handleEdit = (customer: CustomerRecord) => {
     setEditingCustomer(customer);
     setIsEditDialogOpen(true);
+  };
+
+  const handleDelete = (customer: CustomerRecord) => {
+    if (window.confirm(`Are you sure you want to delete ${customer.customerName}'s record?`)) {
+      const success = deleteCustomerRecord(customer.customerId);
+      if (success) {
+        toast.success(`Customer record deleted successfully!`, {
+          description: `${customer.customerName}'s record has been removed`,
+          duration: 3000,
+        });
+        onUpdate();
+      } else {
+        toast.error('Failed to delete customer record', {
+          description: 'Please try again or contact support',
+          duration: 3000,
+        });
+      }
+    }
+  };
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
   };
 
   const handleCloseEdit = () => {
@@ -108,11 +139,25 @@ const CustomerRecords: React.FC<CustomerRecordsProps> = ({ records, onUpdate }) 
                       <Edit size={12} className="mr-1" />
                       Edit
                     </Button>
+                    <Button
+                      size="sm"
+                      onClick={() => handleDelete(record)}
+                      className="bg-red-600 hover:bg-red-700 text-white text-xs px-2 py-1 h-7 transition-all duration-200 hover:scale-105"
+                    >
+                      <Trash2 size={12} className="mr-1" />
+                      Delete
+                    </Button>
                   </div>
                 </CardTitle>
               </CardHeader>
               <CardContent className="pt-0">
                 <div className="space-y-3">
+                  {/* Date Badge */}
+                  <div className="flex items-center gap-2 text-xs text-slate-600 bg-slate-100 px-3 py-1 rounded-full">
+                    <Calendar size={12} />
+                    <span>Added: {formatDate(record.createdAt)}</span>
+                  </div>
+                  
                   <div className="flex gap-2 flex-wrap">
                     <Badge variant={record.customerType === 'Regular' ? 'default' : 'secondary'} className="text-xs">
                       {record.customerType === 'Regular' ? '👤' : '⏰'} {record.customerType}
@@ -165,6 +210,7 @@ const CustomerRecords: React.FC<CustomerRecordsProps> = ({ records, onUpdate }) 
                 <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Total</th>
                 <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Payment</th>
                 <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Status</th>
+                <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Date Added</th>
                 <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Actions</th>
               </tr>
             </thead>
@@ -195,15 +241,30 @@ const CustomerRecords: React.FC<CustomerRecordsProps> = ({ records, onUpdate }) 
                       {record.isReady ? '✅ Ready' : '⏳ Processing'}
                     </Badge>
                   </td>
+                  <td className="border border-amber-200 p-3 text-xs">
+                    <div className="flex items-center gap-1">
+                      <Calendar size={12} className="text-slate-500" />
+                      <span>{formatDate(record.createdAt)}</span>
+                    </div>
+                  </td>
                   <td className="border border-amber-200 p-3">
-                    <Button
-                      size="sm"
-                      onClick={() => handleEdit(record)}
-                      className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-2 py-1 h-7 transition-all duration-200 hover:scale-105"
-                    >
-                      <Edit size={12} className="mr-1" />
-                      Edit
-                    </Button>
+                    <div className="flex gap-1">
+                      <Button
+                        size="sm"
+                        onClick={() => handleEdit(record)}
+                        className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-2 py-1 h-7 transition-all duration-200 hover:scale-105"
+                      >
+                        <Edit size={12} className="mr-1" />
+                        Edit
+                      </Button>
+                      <Button
+                        size="sm"
+                        onClick={() => handleDelete(record)}
+                        className="bg-red-600 hover:bg-red-700 text-white text-xs px-2 py-1 h-7 transition-all duration-200 hover:scale-105"
+                      >
+                        <Trash2 size={12} />
+                      </Button>
+                    </div>
                   </td>
                 </tr>
               ))}

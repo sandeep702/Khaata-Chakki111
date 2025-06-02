@@ -1,4 +1,3 @@
-
 import { CustomerRecord } from '../types/Customer';
 
 const STORAGE_KEY = 'wheatStore_customerRecords';
@@ -28,6 +27,7 @@ export const saveCustomerRecord = (record: Omit<CustomerRecord, 'customerId'>): 
       customerId: existingId || getNextCustomerId(),
       ratePerKg: 2, // Fixed rate at ₹2
       totalPrice: (parseFloat(record.wheatWeight.toString()) || 0) * 2,
+      createdAt: new Date().toISOString(), // Ensure date is always current
     };
     
     const updatedRecords = [...existingRecords, newRecord];
@@ -96,6 +96,11 @@ export const deleteCustomerRecord = (customerId: number): boolean => {
   try {
     const records = getAllCustomerRecords();
     const filteredRecords = records.filter(record => record.customerId !== customerId);
+    
+    if (filteredRecords.length === records.length) {
+      return false; // Record not found
+    }
+    
     localStorage.setItem(STORAGE_KEY, JSON.stringify(filteredRecords));
     return true;
   } catch (error) {
