@@ -6,6 +6,7 @@ import CustomerDetailsSection from './CustomerDetailsSection';
 import WheatFlourSection from './WheatFlourSection';
 import PaymentSection from './PaymentSection';
 import ItemReadySection from './ItemReadySection';
+import { Save, RotateCcw } from 'lucide-react';
 
 interface CustomerFormProps {
   onSave: (record: Omit<CustomerRecord, 'customerId'>) => void;
@@ -66,24 +67,33 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ onSave }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="transform hover:scale-[1.01] transition-transform duration-200">
+    <form onSubmit={handleSubmit} className="space-y-8">
+      <div className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl p-6 border border-emerald-200/50">
         <ItemReadySection
           isReady={formData.isReady}
           setIsReady={(value: boolean) => setFormData({ ...formData, isReady: value })}
         />
       </div>
 
-      <div className="transform hover:scale-[1.01] transition-transform duration-200">
-        <CustomerDetailsSection
-          customerName={formData.customerName}
-          setCustomerName={(value) => setFormData({ ...formData, customerName: value })}
-          customerType={formData.customerType}
-          setCustomerType={(value) => setFormData({ ...formData, customerType: value })}
-        />
+      <div className="grid lg:grid-cols-2 gap-8">
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-200/50">
+          <CustomerDetailsSection
+            customerName={formData.customerName}
+            setCustomerName={(value) => setFormData({ ...formData, customerName: value })}
+            customerType={formData.customerType}
+            setCustomerType={(value) => setFormData({ ...formData, customerType: value })}
+          />
+        </div>
+
+        <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-6 border border-purple-200/50">
+          <PaymentSection
+            paymentMethod={formData.paymentMethod}
+            setPaymentMethod={(value) => setFormData({ ...formData, paymentMethod: value })}
+          />
+        </div>
       </div>
 
-      <div className="transform hover:scale-[1.01] transition-transform duration-200">
+      <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-200/50">
         <WheatFlourSection
           wheatWeight={formData.wheatWeight}
           setWheatWeight={(value) => setFormData({ ...formData, wheatWeight: value })}
@@ -93,22 +103,25 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ onSave }) => {
         />
       </div>
 
-      <div className="transform hover:scale-[1.01] transition-transform duration-200">
-        <PaymentSection
-          paymentMethod={formData.paymentMethod}
-          setPaymentMethod={(value) => setFormData({ ...formData, paymentMethod: value })}
-        />
-      </div>
-
-      <Button
-        type="submit"
-        className="w-full bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 hover:from-amber-700 hover:via-orange-700 hover:to-amber-800 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:scale-[1.02] hover:-translate-y-1"
-      >
-        <span className="flex items-center justify-center gap-2">
-          <span className="text-lg">💾</span>
+      <div className="flex gap-4">
+        <Button
+          type="submit"
+          className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
+        >
+          <Save size={20} className="mr-2" />
           Save Customer Record
-        </span>
-      </Button>
+        </Button>
+        
+        <Button
+          type="button"
+          onClick={resetForm}
+          variant="outline"
+          className="px-6 py-4 rounded-xl border-2 border-slate-300 hover:border-slate-400 transition-all duration-300"
+        >
+          <RotateCcw size={20} className="mr-2" />
+          Reset
+        </Button>
+      </div>
     </form>
   );
 };

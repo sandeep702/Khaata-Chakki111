@@ -7,11 +7,13 @@ import AmountSection from '../components/AmountSection';
 import { CustomerRecord } from '../types/Customer';
 import { saveCustomerRecord, getAllCustomerRecords, getCustomerByNameOrId, getTotalRevenue } from '../utils/storage';
 import { toast } from 'sonner';
+import { Plus, Search, Database, TrendingUp, Wheat, Users, MapPin, Clock } from 'lucide-react';
 
 const Index = () => {
   const [records, setRecords] = useState<CustomerRecord[]>([]);
   const [searchResults, setSearchResults] = useState<CustomerRecord[]>([]);
   const [totalRevenue, setTotalRevenue] = useState(0);
+  const [activeTab, setActiveTab] = useState('new-customer');
 
   useEffect(() => {
     loadRecords();
@@ -82,59 +84,139 @@ const Index = () => {
     });
   };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-orange-50 relative">
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-32 left-16 w-48 h-48 bg-rose-300 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-80 right-24 w-36 h-36 bg-orange-300 rounded-full blur-2xl animate-bounce"></div>
-        <div className="absolute bottom-32 left-1/3 w-32 h-32 bg-pink-300 rounded-full blur-2xl animate-pulse"></div>
-        <div className="absolute bottom-60 right-1/4 w-40 h-40 bg-yellow-300 rounded-full blur-3xl animate-bounce"></div>
-      </div>
+  const tabs = [
+    { id: 'new-customer', label: 'New Customer', icon: Plus },
+    { id: 'search', label: 'Search', icon: Search },
+    { id: 'records', label: 'Records', icon: Database },
+    { id: 'analytics', label: 'Analytics', icon: TrendingUp }
+  ];
 
-      <div className="container mx-auto px-6 py-12 relative z-10">
-        <div className="text-center mb-16 animate-fade-in">
-          <div className="inline-block mb-8">
-            <h1 className="text-7xl font-extrabold bg-gradient-to-r from-rose-600 via-pink-600 to-orange-600 bg-clip-text text-transparent mb-6 hover:scale-105 transition-transform duration-300 cursor-default">
-              🌾 Grain & Grind Hub
-            </h1>
-            <div className="w-40 h-2 bg-gradient-to-r from-rose-400 via-pink-400 to-orange-400 rounded-full mx-auto mb-4"></div>
-            <div className="flex justify-center gap-2">
-              <div className="w-3 h-3 bg-rose-400 rounded-full animate-pulse"></div>
-              <div className="w-3 h-3 bg-pink-400 rounded-full animate-pulse delay-75"></div>
-              <div className="w-3 h-3 bg-orange-400 rounded-full animate-pulse delay-150"></div>
+  const stats = [
+    { 
+      title: 'Total Customers', 
+      value: records.length.toString(), 
+      icon: Users, 
+      color: 'from-blue-500 to-blue-600',
+      bgColor: 'bg-blue-50'
+    },
+    { 
+      title: 'Total Revenue', 
+      value: `₹${totalRevenue.toFixed(2)}`, 
+      icon: TrendingUp, 
+      color: 'from-green-500 to-green-600',
+      bgColor: 'bg-green-50'
+    },
+    { 
+      title: 'Ready Orders', 
+      value: records.filter(r => r.isReady).length.toString(), 
+      icon: Clock, 
+      color: 'from-orange-500 to-orange-600',
+      bgColor: 'bg-orange-50'
+    },
+    { 
+      title: 'Active Mills', 
+      value: '15', 
+      icon: MapPin, 
+      color: 'from-purple-500 to-purple-600',
+      bgColor: 'bg-purple-50'
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      {/* Modern Header */}
+      <header className="bg-white/80 backdrop-blur-lg border-b border-slate-200/50 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-6 py-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg">
+                <Wheat className="text-white" size={24} />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent">
+                  Grain & Grind Hub
+                </h1>
+                <p className="text-sm text-slate-500 font-medium">Premium Flour Mill Management</p>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-600 text-white px-4 py-2 rounded-xl font-semibold shadow-lg">
+              <Clock size={16} />
+              {new Date().toLocaleDateString()}
             </div>
           </div>
-          <p className="text-2xl text-rose-700 font-semibold max-w-3xl mx-auto leading-relaxed">
-            Your premium flour store management solution with warmth and precision
-          </p>
+        </div>
+      </header>
+
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          {stats.map((stat, index) => (
+            <div key={index} className={`${stat.bgColor} rounded-2xl p-6 border border-slate-200/50 hover:shadow-lg transition-all duration-300 group cursor-pointer`}>
+              <div className="flex items-center justify-between mb-4">
+                <div className={`w-12 h-12 bg-gradient-to-br ${stat.color} rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
+                  <stat.icon className="text-white" size={20} />
+                </div>
+                <div className="text-right">
+                  <div className="text-2xl font-bold text-slate-800">{stat.value}</div>
+                  <div className="text-sm text-slate-600 font-medium">{stat.title}</div>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
 
-        <div className="grid lg:grid-cols-5 gap-10 mb-12">
-          <div className="lg:col-span-3 space-y-10">
-            <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl border-2 border-rose-200 overflow-hidden transform hover:scale-[1.01] transition-all duration-300">
-              <div className="bg-gradient-to-r from-rose-500 via-pink-500 to-red-500 px-8 py-7 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-30"></div>
-                <h2 className="text-2xl font-bold text-white relative z-10 flex items-center gap-4">
-                  <span className="text-4xl">🆕</span>
-                  Add New Customer
-                </h2>
-                <p className="text-rose-100 mt-2 relative z-10">Create a new customer record</p>
+        {/* Navigation Tabs */}
+        <div className="bg-white/80 backdrop-blur-lg rounded-2xl border border-slate-200/50 shadow-lg mb-8">
+          <div className="flex overflow-x-auto">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center gap-3 px-6 py-4 font-semibold transition-all duration-300 border-b-2 ${
+                  activeTab === tab.id
+                    ? 'border-blue-500 text-blue-600 bg-blue-50/50'
+                    : 'border-transparent text-slate-600 hover:text-blue-600 hover:bg-slate-50/50'
+                }`}
+              >
+                <tab.icon size={20} />
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Tab Content */}
+        <div className="space-y-8">
+          {activeTab === 'new-customer' && (
+            <div className="bg-white/80 backdrop-blur-lg rounded-2xl border border-slate-200/50 shadow-lg overflow-hidden">
+              <div className="bg-gradient-to-r from-blue-500 to-indigo-600 px-8 py-6">
+                <div className="flex items-center gap-3 text-white">
+                  <Plus size={24} />
+                  <div>
+                    <h2 className="text-xl font-bold">Add New Customer</h2>
+                    <p className="text-blue-100">Create a new customer record</p>
+                  </div>
+                </div>
               </div>
-              <div className="p-8 bg-gradient-to-br from-white to-rose-50">
+              <div className="p-8">
                 <CustomerForm onSave={handleSaveRecord} />
               </div>
             </div>
+          )}
 
-            <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl border-2 border-orange-200 overflow-hidden transform hover:scale-[1.01] transition-all duration-300">
-              <div className="bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-500 px-8 py-7 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-30"></div>
-                <h2 className="text-2xl font-bold text-white relative z-10 flex items-center gap-4">
-                  <span className="text-4xl">🔎</span>
-                  Find Customer
-                </h2>
-                <p className="text-orange-100 mt-2 relative z-10">Search existing records</p>
+          {activeTab === 'search' && (
+            <div className="bg-white/80 backdrop-blur-lg rounded-2xl border border-slate-200/50 shadow-lg overflow-hidden">
+              <div className="bg-gradient-to-r from-emerald-500 to-teal-600 px-8 py-6">
+                <div className="flex items-center gap-3 text-white">
+                  <Search size={24} />
+                  <div>
+                    <h2 className="text-xl font-bold">Search Customers</h2>
+                    <p className="text-emerald-100">Find existing customer records</p>
+                  </div>
+                </div>
               </div>
-              <div className="p-8 bg-gradient-to-br from-white to-orange-50">
+              <div className="p-8">
                 <SearchCustomer 
                   onSearch={handleSearchCustomer} 
                   searchResults={searchResults} 
@@ -142,37 +224,41 @@ const Index = () => {
                 />
               </div>
             </div>
-          </div>
+          )}
 
-          <div className="lg:col-span-2">
-            <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl border-2 border-emerald-200 overflow-hidden transform hover:scale-[1.01] transition-all duration-300 h-fit">
-              <div className="bg-gradient-to-r from-emerald-500 via-teal-500 to-green-500 px-8 py-7 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-30"></div>
-                <h2 className="text-2xl font-bold text-white relative z-10 flex items-center gap-4">
-                  <span className="text-4xl">📋</span>
-                  Records
-                </h2>
-                <p className="text-emerald-100 mt-2 relative z-10">All customer data</p>
+          {activeTab === 'records' && (
+            <div className="bg-white/80 backdrop-blur-lg rounded-2xl border border-slate-200/50 shadow-lg overflow-hidden">
+              <div className="bg-gradient-to-r from-purple-500 to-violet-600 px-8 py-6">
+                <div className="flex items-center gap-3 text-white">
+                  <Database size={24} />
+                  <div>
+                    <h2 className="text-xl font-bold">Customer Records</h2>
+                    <p className="text-purple-100">All customer data and history</p>
+                  </div>
+                </div>
               </div>
-              <div className="p-8 bg-gradient-to-br from-white to-emerald-50">
+              <div className="p-8">
                 <CustomerRecords records={records} onUpdate={handleUpdateRecords} />
               </div>
             </div>
-          </div>
-        </div>
+          )}
 
-        <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl border-2 border-purple-200 overflow-hidden transform hover:scale-[1.005] transition-all duration-300">
-          <div className="bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 px-8 py-7 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-30"></div>
-            <h2 className="text-2xl font-bold text-white relative z-10 flex items-center gap-4">
-              <span className="text-4xl">💎</span>
-              Financial Overview
-            </h2>
-            <p className="text-purple-100 mt-2 relative z-10">Revenue and transaction analytics</p>
-          </div>
-          <div className="p-8 bg-gradient-to-br from-white to-purple-50">
-            <AmountSection records={records} totalRevenue={totalRevenue} />
-          </div>
+          {activeTab === 'analytics' && (
+            <div className="bg-white/80 backdrop-blur-lg rounded-2xl border border-slate-200/50 shadow-lg overflow-hidden">
+              <div className="bg-gradient-to-r from-orange-500 to-red-600 px-8 py-6">
+                <div className="flex items-center gap-3 text-white">
+                  <TrendingUp size={24} />
+                  <div>
+                    <h2 className="text-xl font-bold">Financial Analytics</h2>
+                    <p className="text-orange-100">Revenue and business insights</p>
+                  </div>
+                </div>
+              </div>
+              <div className="p-8">
+                <AmountSection records={records} totalRevenue={totalRevenue} />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
