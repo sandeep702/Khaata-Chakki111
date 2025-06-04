@@ -1,9 +1,11 @@
+
 import React, { useState, useEffect } from 'react';
 import CustomerForm from '../components/CustomerForm';
 import CustomerRecords from '../components/CustomerRecords';
 import SearchCustomer from '../components/SearchCustomer';
 import AmountSection from '../components/AmountSection';
 import { CustomerRecord } from '../types/Customer';
+import { useAuth } from '../contexts/AuthContext';
 import { 
   saveCustomerRecord, 
   getAllCustomerRecords, 
@@ -11,9 +13,11 @@ import {
   getTotalRevenue 
 } from '../utils/database';
 import { toast } from 'sonner';
-import { Plus, Search, Database, TrendingUp, Wheat, Users, MapPin, Clock, Sparkles, Zap } from 'lucide-react';
+import { Plus, Search, Database, TrendingUp, Wheat, Users, MapPin, Clock, Sparkles, Zap, LogOut } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const Index = () => {
+  const { user, signOut } = useAuth();
   const [records, setRecords] = useState<CustomerRecord[]>([]);
   const [searchResults, setSearchResults] = useState<CustomerRecord[]>([]);
   const [totalRevenue, setTotalRevenue] = useState(0);
@@ -95,6 +99,15 @@ const Index = () => {
       });
     } catch (error) {
       toast.error('Failed to update records');
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      toast.success('Logged out successfully');
+    } catch (error) {
+      toast.error('Failed to logout');
     }
   };
 
@@ -191,7 +204,7 @@ const Index = () => {
             </div>
             
             <div className="text-center">
-              <div className="bg-white/20 backdrop-blur-sm border border-white/30 rounded-2xl p-6">
+              <div className="bg-white/20 backdrop-blur-sm border border-white/30 rounded-2xl p-6 mb-4">
                 <div className="text-3xl font-black text-white mb-2">
                   {new Date().toLocaleDateString('en-US', { 
                     weekday: 'short', 
@@ -202,6 +215,20 @@ const Index = () => {
                 <div className="text-sm text-blue-100 font-semibold">
                   {new Date().toLocaleDateString('en-US', { year: 'numeric' })}
                 </div>
+              </div>
+              
+              <div className="bg-white/20 backdrop-blur-sm border border-white/30 rounded-2xl p-4">
+                <p className="text-white font-semibold mb-2">Welcome back!</p>
+                <p className="text-blue-100 text-sm mb-3">{user?.email}</p>
+                <Button
+                  onClick={handleLogout}
+                  variant="outline"
+                  size="sm"
+                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 transition-all duration-200"
+                >
+                  <LogOut size={16} className="mr-2" />
+                  Logout
+                </Button>
               </div>
             </div>
           </div>

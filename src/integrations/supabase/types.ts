@@ -23,6 +23,7 @@ export type Database = {
           rate_per_kg: number
           total_price: number
           updated_at: string
+          user_id: string | null
           wheat_weight: number
         }
         Insert: {
@@ -38,6 +39,7 @@ export type Database = {
           rate_per_kg?: number
           total_price: number
           updated_at?: string
+          user_id?: string | null
           wheat_weight: number
         }
         Update: {
@@ -53,7 +55,32 @@ export type Database = {
           rate_per_kg?: number
           total_price?: number
           updated_at?: string
+          user_id?: string | null
           wheat_weight?: number
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          full_name: string | null
+          id: string
+          role: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          full_name?: string | null
+          id: string
+          role?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          role?: string | null
+          updated_at?: string
         }
         Relationships: []
       }

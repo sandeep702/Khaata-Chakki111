@@ -14,6 +14,7 @@ export interface DatabaseCustomerRecord {
   payment_method: 'Cash' | 'Borrow';
   payment_status: 'Paid' | 'Pending';
   is_ready: boolean;
+  user_id: string;
   created_at: string;
   updated_at: string;
 }
@@ -52,6 +53,12 @@ const getNextCustomerId = async (): Promise<number> => {
 
 export const saveCustomerRecord = async (record: Omit<CustomerRecord, 'customerId'>): Promise<CustomerRecord> => {
   try {
+    // Get current user
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      throw new Error('User not authenticated');
+    }
+
     const existingId = await getExistingCustomerIdByName(record.customerName);
     const customerId = existingId || await getNextCustomerId();
     
@@ -66,6 +73,7 @@ export const saveCustomerRecord = async (record: Omit<CustomerRecord, 'customerI
       payment_method: record.paymentMethod,
       payment_status: record.paymentMethod === 'Cash' ? 'Paid' as const : 'Pending' as const,
       is_ready: record.isReady,
+      user_id: user.id,
     };
 
     const { data, error } = await supabase
