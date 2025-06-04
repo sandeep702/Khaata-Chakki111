@@ -142,7 +142,7 @@ const Index = () => {
     },
     { 
       title: 'Active Mills', 
-      value: '15', 
+      value: '1', 
       icon: MapPin, 
       gradient: 'from-pink-400 to-rose-500',
       bgGradient: 'from-pink-50 to-rose-100'
