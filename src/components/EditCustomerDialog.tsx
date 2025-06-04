@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Checkbox } from '@/components/ui/checkbox';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { CustomerRecord } from '../types/Customer';
-import { updateCustomerRecord } from '../utils/storage';
+import { updateCustomerRecord } from '../utils/database';
 import { toast } from 'sonner';
 
 interface EditCustomerDialogProps {
@@ -31,15 +30,14 @@ const EditCustomerDialog: React.FC<EditCustomerDialogProps> = ({
 
   if (!editData) return null;
 
-  const handleSave = () => {
-    // Ensure rate stays fixed and recalculate total
+  const handleSave = async () => {
     const updatedRecord = {
       ...editData,
       ratePerKg: 2,
       totalPrice: editData.wheatWeight * 2
     };
     
-    const success = updateCustomerRecord(editData.customerId, updatedRecord);
+    const success = await updateCustomerRecord(editData.customerId, updatedRecord);
     if (success) {
       toast.success('Customer record updated successfully!');
       onUpdate();

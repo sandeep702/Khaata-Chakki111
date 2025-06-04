@@ -1,11 +1,15 @@
-
 import React, { useState, useEffect } from 'react';
 import CustomerForm from '../components/CustomerForm';
 import CustomerRecords from '../components/CustomerRecords';
 import SearchCustomer from '../components/SearchCustomer';
 import AmountSection from '../components/AmountSection';
 import { CustomerRecord } from '../types/Customer';
-import { saveCustomerRecord, getAllCustomerRecords, getCustomerByNameOrId, getTotalRevenue } from '../utils/storage';
+import { 
+  saveCustomerRecord, 
+  getAllCustomerRecords, 
+  getCustomerByNameOrId, 
+  getTotalRevenue 
+} from '../utils/database';
 import { toast } from 'sonner';
 import { Plus, Search, Database, TrendingUp, Wheat, Users, MapPin, Clock, Sparkles, Zap } from 'lucide-react';
 
@@ -14,37 +18,36 @@ const Index = () => {
   const [searchResults, setSearchResults] = useState<CustomerRecord[]>([]);
   const [totalRevenue, setTotalRevenue] = useState(0);
   const [activeTab, setActiveTab] = useState('new-customer');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     loadRecords();
   }, []);
 
-  const loadRecords = () => {
-    const allRecords = getAllCustomerRecords();
-    setRecords(allRecords);
-    setTotalRevenue(getTotalRevenue());
+  const loadRecords = async () => {
+    try {
+      setIsLoading(true);
+      const allRecords = await getAllCustomerRecords();
+      const revenue = await getTotalRevenue();
+      setRecords(allRecords);
+      setTotalRevenue(revenue);
+    } catch (error) {
+      console.error('Error loading records:', error);
+      toast.error('Failed to load records');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleSaveRecord = (record: Omit<CustomerRecord, 'customerId'>) => {
+  const handleSaveRecord = async (record: Omit<CustomerRecord, 'customerId'>) => {
     try {
-      const savedRecord = saveCustomerRecord(record);
-      loadRecords();
+      const savedRecord = await saveCustomerRecord(record);
+      await loadRecords();
       
-      const existingCustomers = getAllCustomerRecords().filter(r => 
-        r.customerName.toLowerCase() === record.customerName.toLowerCase() && r.customerId === savedRecord.customerId
-      );
-      
-      if (existingCustomers.length > 1) {
-        toast.success(`Customer record saved under existing ID: ${savedRecord.customerId}`, {
-          description: `${record.customerName} already exists, so using same Customer ID`,
-          duration: 3000,
-        });
-      } else {
-        toast.success(`New customer record created with ID: ${savedRecord.customerId}`, {
-          description: `${record.customerName}'s record has been successfully created`,
-          duration: 3000,
-        });
-      }
+      toast.success(`Customer record saved with ID: ${savedRecord.customerId}`, {
+        description: `${record.customerName}'s record has been successfully saved`,
+        duration: 3000,
+      });
     } catch (error) {
       toast.error('Failed to save customer record', {
         description: 'Please try again or contact support',
@@ -53,35 +56,46 @@ const Index = () => {
     }
   };
 
-  const handleSearchCustomer = (searchTerm: string) => {
-    const customers = getCustomerByNameOrId(searchTerm);
-    setSearchResults(customers);
-    if (customers.length > 0) {
-      toast.success(`Found ${customers.length} exact match(es) for "${searchTerm}"`, {
-        description: `Search completed successfully`,
-        duration: 3000,
-      });
-    } else {
-      toast.error('No exact matches found', {
-        description: 'Try searching with the exact customer name or ID',
+  const handleSearchCustomer = async (searchTerm: string) => {
+    try {
+      const customers = await getCustomerByNameOrId(searchTerm);
+      setSearchResults(customers);
+      if (customers.length > 0) {
+        toast.success(`Found ${customers.length} match(es) for "${searchTerm}"`, {
+          description: `Search completed successfully`,
+          duration: 3000,
+        });
+      } else {
+        toast.error('No matches found', {
+          description: 'Try searching with the exact customer name or ID',
+          duration: 3000,
+        });
+      }
+    } catch (error) {
+      toast.error('Search failed', {
+        description: 'Please try again',
         duration: 3000,
       });
     }
   };
 
-  const handleUpdateRecords = () => {
-    loadRecords();
-    if (searchResults.length > 0) {
-      const lastSearchTerm = searchResults[0]?.customerName || searchResults[0]?.customerId?.toString() || '';
-      if (lastSearchTerm) {
-        const updatedResults = getCustomerByNameOrId(lastSearchTerm);
-        setSearchResults(updatedResults);
+  const handleUpdateRecords = async () => {
+    try {
+      await loadRecords();
+      if (searchResults.length > 0) {
+        const lastSearchTerm = searchResults[0]?.customerName || searchResults[0]?.customerId?.toString() || '';
+        if (lastSearchTerm) {
+          const updatedResults = await getCustomerByNameOrId(lastSearchTerm);
+          setSearchResults(updatedResults);
+        }
       }
+      toast.success('Records updated successfully!', {
+        description: 'All changes have been saved',
+        duration: 2000,
+      });
+    } catch (error) {
+      toast.error('Failed to update records');
     }
-    toast.success('Records updated successfully!', {
-      description: 'All changes have been saved',
-      duration: 2000,
-    });
   };
 
   const tabs = [
@@ -121,6 +135,17 @@ const Index = () => {
       bgGradient: 'from-pink-50 to-rose-100'
     }
   ];
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-100 via-blue-50 to-purple-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-indigo-600 mx-auto mb-4"></div>
+          <p className="text-xl font-semibold text-slate-700">Loading your data...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-100 via-blue-50 to-purple-50">

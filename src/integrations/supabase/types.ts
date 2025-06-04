@@ -9,7 +9,54 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      customer_records: {
+        Row: {
+          created_at: string
+          customer_id: number
+          customer_name: string
+          customer_type: string
+          flour_type: string
+          id: string
+          is_ready: boolean
+          payment_method: string
+          payment_status: string
+          rate_per_kg: number
+          total_price: number
+          updated_at: string
+          wheat_weight: number
+        }
+        Insert: {
+          created_at?: string
+          customer_id: number
+          customer_name: string
+          customer_type: string
+          flour_type: string
+          id?: string
+          is_ready?: boolean
+          payment_method: string
+          payment_status: string
+          rate_per_kg?: number
+          total_price: number
+          updated_at?: string
+          wheat_weight: number
+        }
+        Update: {
+          created_at?: string
+          customer_id?: number
+          customer_name?: string
+          customer_type?: string
+          flour_type?: string
+          id?: string
+          is_ready?: boolean
+          payment_method?: string
+          payment_status?: string
+          rate_per_kg?: number
+          total_price?: number
+          updated_at?: string
+          wheat_weight?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

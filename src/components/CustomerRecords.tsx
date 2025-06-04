@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -6,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { CustomerRecord } from '../types/Customer';
 import { Edit, LayoutGrid, List, Trash2, Calendar } from 'lucide-react';
 import EditCustomerDialog from './EditCustomerDialog';
-import { deleteCustomerRecord } from '../utils/storage';
+import { deleteCustomerRecord } from '../utils/database';
 import { toast } from 'sonner';
 
 interface CustomerRecordsProps {
@@ -24,9 +23,9 @@ const CustomerRecords: React.FC<CustomerRecordsProps> = ({ records, onUpdate }) 
     setIsEditDialogOpen(true);
   };
 
-  const handleDelete = (customer: CustomerRecord) => {
+  const handleDelete = async (customer: CustomerRecord) => {
     if (window.confirm(`Are you sure you want to delete ${customer.customerName}'s record?`)) {
-      const success = deleteCustomerRecord(customer.customerId);
+      const success = await deleteCustomerRecord(customer.customerId);
       if (success) {
         toast.success(`Customer record deleted successfully!`, {
           description: `${customer.customerName}'s record has been removed`,
@@ -75,7 +74,6 @@ const CustomerRecords: React.FC<CustomerRecordsProps> = ({ records, onUpdate }) 
 
   return (
     <div className="space-y-6">
-      {/* Header with Stats and View Toggle */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-gradient-to-r from-amber-100 to-orange-100 p-4 rounded-xl border border-amber-200">
         <div className="flex items-center gap-4">
           <div className="bg-amber-600 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold">
@@ -111,7 +109,6 @@ const CustomerRecords: React.FC<CustomerRecordsProps> = ({ records, onUpdate }) 
         </div>
       </div>
 
-      {/* Records Display */}
       {viewMode === 'cards' ? (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-h-96 overflow-y-auto pr-2">
           {records.slice().reverse().map((record, index) => (
@@ -152,7 +149,6 @@ const CustomerRecords: React.FC<CustomerRecordsProps> = ({ records, onUpdate }) 
               </CardHeader>
               <CardContent className="pt-0">
                 <div className="space-y-3">
-                  {/* Date Badge */}
                   <div className="flex items-center gap-2 text-xs text-slate-600 bg-slate-100 px-3 py-1 rounded-full">
                     <Calendar size={12} />
                     <span>Added: {formatDate(record.createdAt)}</span>
