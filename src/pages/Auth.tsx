@@ -91,7 +91,7 @@ const Auth = () => {
             <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
               <Wheat className="text-white" size={24} />
             </div>
-            <h1 className="text-3xl font-black text-slate-800">Grain & Grind Hub</h1>
+            <h1 className="text-3xl font-black text-slate-800">Khaata Chakki</h1>
           </div>
           <p className="text-slate-600 font-medium">Premium Flour Mill Management</p>
         </div>
