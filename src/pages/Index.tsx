@@ -184,7 +184,7 @@ const Index = () => {
                   </div>
                 </div>
                 <div>
-                  <h1 className="text-4xl md:text-5xl font-black text-white mb-2">
+                  <h1 className="text-4xl md:text-3xl font-black text-white mb-2">
                    Wel🙏 To Khaata Chakki 🥰
                   </h1>
                   <p className="text-lg text-blue-100 font-semibold">Premium Flour Mill Management System</p>
