@@ -185,7 +185,7 @@ const Index = () => {
                 </div>
                 <div>
                   <h1 className="text-4xl md:text-5xl font-black text-white mb-2">
-                    Grain & Grind Hub
+                   Wel🙏 To Khaata Chakki 🥰
                   </h1>
                   <p className="text-lg text-blue-100 font-semibold">Premium Flour Mill Management System</p>
                 </div>
@@ -198,7 +198,7 @@ const Index = () => {
                 </div>
                 <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 text-white px-4 py-2 rounded-full font-semibold">
                   <Clock size={16} className="text-green-300" />
-                  Est. 2003
+                  All time records 
                 </div>
               </div>
             </div>
