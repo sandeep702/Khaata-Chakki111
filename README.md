@@ -80,8 +80,7 @@ src/
 ├── pages/          # Route pages
 ├── types/          # TypeScript types
 └── utils/          # Utility functions
-```bash
-## Security
+#### Security
 - User authentication required
 - Secure data management
 - Role-based access
