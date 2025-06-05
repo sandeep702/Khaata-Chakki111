@@ -101,7 +101,7 @@ const Auth = () => {
                 <img 
                   src="/khaata.png" 
                   alt="Khaata Chakki Logo" 
-                  className="w-full h-full object-contain"
+                  className="w-full h-full "
                 />
               </div>
               <div>
@@ -128,7 +128,7 @@ const Auth = () => {
                 <img 
                   src="/khaata.png" 
                   alt="Khaata Chakki Logo" 
-                  className="w-full h-full object-contain"
+                  className="w-full h-full "
                 />
               </div>
               <h2 className="text-3xl font-black text-slate-800 mb-2">Welcome Back</h2>

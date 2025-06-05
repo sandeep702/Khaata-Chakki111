@@ -180,17 +180,17 @@ const Index = () => {
             <div className="text-center lg:text-left flex-1">
               <div className="flex items-center justify-center lg:justify-start gap-4 mb-4">
                 <div className="relative">
-                  <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-2xl overflow-hidden">
+                  <div className="   flex items-center justify-center  overflow-hidden">
                     <img 
                       src="/khaata.png" 
                       alt="Khaata Chakki Logo" 
-                      className="w-full h-full object-contain"
+                      className=" h-16 w-16 "
                     />
                   </div>
                 </div>
                 <div>
                   <h1 className="text-3xl lg:text-4xl font-black text-white mb-1">
-                    Wel🙏 To Khaata Chakki 🥰
+                    Khaata Chakki 🥰
                   </h1>
                   <p className="text-purple-100 text-sm lg:text-base font-semibold">Premium Flour Mill Management System</p>
                 </div>
