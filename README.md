@@ -1,73 +1,92 @@
-# Welcome to your Lovable project
+# Khaata-Chakki
 
-## Project info
+## Overview
+Khaata-Chakki is a modern web application for managing flour mill operations. It streamlines customer order tracking, wheat processing, and payment management.
 
-**URL**: https://lovable.dev/projects/e5e97acf-8da2-4662-b8b5-70d9e64f4f41
+## Tech Stack
 
-## How can I edit this code?
+| Category | Technology |
+|----------|------------|
+| Frontend | React + TypeScript |
+| Styling | Tailwind CSS |
+| Backend | Supabase |
+| Build Tool | Vite |
+| Package Manager | Bun/npm |
+| Authentication | Supabase Auth |
+| Database | Supabase PostgreSQL |
 
-There are several ways of editing your application.
+## Features
 
-**Use Lovable**
+### Customer Management
+- Add/Edit customer records
+- Track regular and temporary customers
+- Quick customer search functionality
+- Customer history tracking
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/e5e97acf-8da2-4662-b8b5-70d9e64f4f41) and start prompting.
+### Order Processing
+- Wheat weight recording
+- Multiple flour types:
+  - Atta
+  - Besan
+  - Multigrain
+  - Other
+- Fixed rate (₹2/kg) calculation
+- Automatic total computation
 
-Changes made via Lovable will be committed automatically to this repo.
+### Payment System
+- Cash and credit options
+- Payment status tracking
+- Outstanding payment monitoring
 
-**Use your preferred IDE**
+### Order Status
+- Real-time processing status
+- Ready-for-pickup notifications
+- Order completion tracking
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Setup
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Prerequisites
+- Node.js
+- npm or bun package manager
+- Supabase account
 
-Follow these steps:
+### Installation
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+1. Clone the repository:
+```bash
+git clone [repository-url]
+cd khaata-chakki
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+2. Install dependencies:
+bun install
+# or
+npm install
 
-# Step 3: Install the necessary dependencies.
-npm i
+3. Build the project:
+bun run build
+# or
+npm run build
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+## Project Structure
+The project is structured as follows:
+- `src/`: Contains the source code for the application.
+- `public/`: Static assets and the HTML template.
 
-**Edit a file directly in GitHub**
+src/
+├── components/     # UI components
+├── contexts/       # React contexts
+├── hooks/          # Custom hooks
+├── integrations/   # External services
+├── pages/          # Route pages
+├── types/          # TypeScript types
+└── utils/          # Utility functions
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Security
+- User authentication required
+- Secure data management
+- Role-based access
+## Contributing
+Contributions welcome! Please feel free to submit pull requests.
 
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/e5e97acf-8da2-4662-b8b5-70d9e64f4f41) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## License
+MIT License
