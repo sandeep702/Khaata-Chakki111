@@ -182,7 +182,7 @@ const Index = () => {
                 <div className="relative">
                   <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-2xl overflow-hidden">
                     <img 
-                      src="/lovable-uploads/c12f74b4-d4a0-4a17-9af3-8b2e94ed7dd5.png" 
+                      src="/khaata.png" 
                       alt="Khaata Chakki Logo" 
                       className="w-full h-full object-contain"
                     />

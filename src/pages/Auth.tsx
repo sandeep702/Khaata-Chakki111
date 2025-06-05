@@ -99,7 +99,7 @@ const Auth = () => {
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-lg transform hover:scale-105 transition-all duration-300 overflow-hidden">
                 <img 
-                  src="/lovable-uploads/c12f74b4-d4a0-4a17-9af3-8b2e94ed7dd5.png" 
+                  src="/khaata.png" 
                   alt="Khaata Chakki Logo" 
                   className="w-full h-full object-contain"
                 />
@@ -126,7 +126,7 @@ const Auth = () => {
             <div className="mb-6">
               <div className="w-20 h-20 bg-white rounded-3xl flex items-center justify-center shadow-2xl mx-auto mb-4 transform hover:scale-110 transition-all duration-300 overflow-hidden">
                 <img 
-                  src="/lovable-uploads/c12f74b4-d4a0-4a17-9af3-8b2e94ed7dd5.png" 
+                  src="/khaata.png" 
                   alt="Khaata Chakki Logo" 
                   className="w-full h-full object-contain"
                 />
