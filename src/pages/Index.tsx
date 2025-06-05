@@ -162,71 +162,76 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-100 via-blue-50 to-purple-50">
-      {/* Modern Header */}
+      {/* Enhanced Modern Header */}
       <header className="relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600"></div>
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }}></div>
+        {/* Gradient Background */}
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600"></div>
+        <div className="absolute inset-0 bg-black/10"></div>
         
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-12">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="text-center md:text-left">
-              <div className="flex items-center justify-center md:justify-start gap-4 mb-6">
+        {/* Decorative Pattern */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full -translate-x-48 -translate-y-48"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/10 rounded-full translate-x-48 translate-y-48"></div>
+        </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-8">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+            {/* Left Section - Brand & Info */}
+            <div className="text-center lg:text-left flex-1">
+              <div className="flex items-center justify-center lg:justify-start gap-4 mb-4">
                 <div className="relative">
-                  <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-2xl transform rotate-3">
+                  <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-2xl">
                     <Wheat className="text-white" size={32} />
-                  </div>
-                  <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-r from-pink-400 to-rose-500 rounded-full flex items-center justify-center">
-                    <Sparkles className="text-white" size={12} />
                   </div>
                 </div>
                 <div>
-                  <h1 className="text-4xl md:text-3xl font-black text-white mb-2">
-                   Wel🙏 To Khaata Chakki 🥰
+                  <h1 className="text-3xl lg:text-4xl font-black text-white mb-1">
+                    Wel🙏 To Khaata Chakki 🥰
                   </h1>
-                  <p className="text-lg text-blue-100 font-semibold">Premium Flour Mill Management System</p>
+                  <p className="text-purple-100 text-sm lg:text-base font-semibold">Premium Flour Mill Management System</p>
                 </div>
               </div>
               
-              <div className="flex flex-wrap justify-center md:justify-start gap-4">
-                <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 text-white px-4 py-2 rounded-full font-semibold">
-                  <Zap size={16} className="text-yellow-300" />
+              {/* Feature Tags */}
+              <div className="flex flex-wrap justify-center lg:justify-start gap-3 mb-4">
+                <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 text-white px-3 py-1.5 rounded-full text-sm font-semibold">
+                  <Zap size={14} className="text-yellow-300" />
                   Modern Technology
                 </div>
-                <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 text-white px-4 py-2 rounded-full font-semibold">
-                  <Clock size={16} className="text-green-300" />
-                  All time records 
+                <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 text-white px-3 py-1.5 rounded-full text-sm font-semibold">
+                  <Clock size={14} className="text-green-300" />
+                  All time records
                 </div>
               </div>
             </div>
             
-            <div className="text-center">
-              <div className="bg-white/20 backdrop-blur-sm border border-white/30 rounded-2xl p-6 mb-4">
-                <div className="text-3xl font-black text-white mb-2">
+            {/* Right Section - Date & User Info */}
+            <div className="flex items-center gap-4">
+              {/* Date Display */}
+              <div className="bg-white/20 backdrop-blur-sm border border-white/30 rounded-2xl p-4 text-center">
+                <div className="text-2xl font-black text-white mb-1">
                   {new Date().toLocaleDateString('en-US', { 
                     weekday: 'short', 
                     month: 'short', 
                     day: 'numeric' 
                   })}
                 </div>
-                <div className="text-sm text-blue-100 font-semibold">
+                <div className="text-xs text-purple-100 font-semibold">
                   {new Date().toLocaleDateString('en-US', { year: 'numeric' })}
                 </div>
               </div>
               
-              <div className="bg-white/20 backdrop-blur-sm border border-white/30 rounded-2xl p-4">
-                <p className="text-white font-semibold mb-2">Welcome back!</p>
-                <p className="text-blue-100 text-sm mb-3">{user?.email}</p>
+              {/* User Info */}
+              <div className="bg-white/20 backdrop-blur-sm border border-white/30 rounded-2xl p-4 text-center">
+                <p className="text-white font-semibold mb-1 text-sm">Welcome back!</p>
+                <p className="text-purple-100 text-xs mb-3 truncate max-w-40">{user?.email}</p>
                 <Button
                   onClick={handleLogout}
                   variant="outline"
                   size="sm"
-                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 transition-all duration-200"
+                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 transition-all duration-200 text-xs px-3 py-1"
                 >
-                  <LogOut size={16} className="mr-2" />
+                  <LogOut size={14} className="mr-1" />
                   Logout
                 </Button>
               </div>

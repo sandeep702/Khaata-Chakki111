@@ -92,14 +92,14 @@ const WheatFlourSection: React.FC<WheatFlourSectionProps> = ({
         </div>
       </div>
 
-      <div className="bg-gradient-to-r from-rose-100 via-pink-100 to-orange-100 p-10 rounded-3xl border-3 border-rose-300 shadow-2xl transform hover:scale-[1.02] transition-all duration-300 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-rose-100 via-pink-100 to-orange-100 p-6 m-4 rounded-3xl border-3 border-rose-300 shadow-2xl transform hover:scale-[1.02] transition-all duration-300 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-50"></div>
         <div className="text-center relative z-10">
-          <Label className="text-3xl font-bold text-rose-800 block mb-4 mt-4 flex items-center justify-center gap-3 ">
-            <span className="text-4xl">💎</span>
+          <Label className="text-2xl font-bold text-rose-800 block mb-3 flex items-center justify-center gap-3">
+            <span className="text-3xl">💎</span>
             Total Amount
           </Label>
-          <div className="text-6xl font-extrabold bg-gradient-to-r from-rose-600 via-pink-600 to-orange-600 bg-clip-text text-transparent">
+          <div className="text-5xl font-extrabold bg-gradient-to-r from-rose-600 via-pink-600 to-orange-600 bg-clip-text text-transparent">
             ₹{totalPrice.toFixed(2)}
           </div>
         </div>
