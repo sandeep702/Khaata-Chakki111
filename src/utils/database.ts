@@ -178,6 +178,12 @@ export const getCustomerByNameOrId = async (searchTerm: string): Promise<Custome
 
 export const updateCustomerRecord = async (customerId: number, updatedRecord: CustomerRecord): Promise<boolean> => {
   try {
+    // Get current user
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      throw new Error('User not authenticated');
+    }
+
     const recordWithFixedRate = {
       customer_name: updatedRecord.customerName,
       customer_type: updatedRecord.customerType,
@@ -188,12 +194,14 @@ export const updateCustomerRecord = async (customerId: number, updatedRecord: Cu
       payment_method: updatedRecord.paymentMethod,
       payment_status: updatedRecord.paymentStatus,
       is_ready: updatedRecord.isReady,
+      user_id: user.id  // Add user_id to the update
     };
 
     const { error } = await supabase
       .from('customer_records')
       .update(recordWithFixedRate)
-      .eq('customer_id', customerId);
+      .eq('customer_id', customerId)
+      .eq('user_id', user.id);  // Ensure user can only update their own records
 
     if (error) {
       console.error('Error updating customer record:', error);
