@@ -13,7 +13,7 @@ import {
   getTotalRevenue 
 } from '../utils/database';
 import { toast } from 'sonner';
-import { Plus, Search, Database, TrendingUp, Wheat, Users, MapPin, Clock, Sparkles, Zap, LogOut } from 'lucide-react';
+import { Plus, Search, Database, TrendingUp, Users, MapPin, Clock, Sparkles, Zap, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Index = () => {
@@ -180,8 +180,12 @@ const Index = () => {
             <div className="text-center lg:text-left flex-1">
               <div className="flex items-center justify-center lg:justify-start gap-4 mb-4">
                 <div className="relative">
-                  <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-2xl">
-                    <Wheat className="text-white" size={32} />
+                  <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-2xl overflow-hidden">
+                    <img 
+                      src="/lovable-uploads/c12f74b4-d4a0-4a17-9af3-8b2e94ed7dd5.png" 
+                      alt="Khaata Chakki Logo" 
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                 </div>
                 <div>

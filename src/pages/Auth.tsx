@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
-import { Eye, EyeOff, LogIn, UserPlus, Wheat, Mail, Lock, User, Shield } from 'lucide-react';
+import { Eye, EyeOff, LogIn, UserPlus, Mail, Lock, User, Shield } from 'lucide-react';
 
 const Auth = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -97,8 +97,12 @@ const Auth = () => {
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg transform hover:scale-105 transition-all duration-300">
-                <Wheat className="text-white" size={28} />
+              <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-lg transform hover:scale-105 transition-all duration-300 overflow-hidden">
+                <img 
+                  src="/lovable-uploads/c12f74b4-d4a0-4a17-9af3-8b2e94ed7dd5.png" 
+                  alt="Khaata Chakki Logo" 
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div>
                 <h1 className="text-2xl font-black text-slate-800 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
@@ -120,8 +124,12 @@ const Auth = () => {
         <div className="w-full max-w-md">
           <div className="text-center mb-8 animate-fade-in">
             <div className="mb-6">
-              <div className="w-20 h-20 bg-gradient-to-br from-amber-500 to-orange-600 rounded-3xl flex items-center justify-center shadow-2xl mx-auto mb-4 transform hover:scale-110 transition-all duration-300">
-                <Wheat className="text-white" size={32} />
+              <div className="w-20 h-20 bg-white rounded-3xl flex items-center justify-center shadow-2xl mx-auto mb-4 transform hover:scale-110 transition-all duration-300 overflow-hidden">
+                <img 
+                  src="/lovable-uploads/c12f74b4-d4a0-4a17-9af3-8b2e94ed7dd5.png" 
+                  alt="Khaata Chakki Logo" 
+                  className="w-full h-full object-contain"
+                />
               </div>
               <h2 className="text-3xl font-black text-slate-800 mb-2">Welcome Back</h2>
               <p className="text-slate-600 font-medium">Access your flour mill dashboard</p>
