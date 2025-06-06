@@ -84,7 +84,7 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-400 via-yellow-100 to-orange-100 flex items-center justify-center p-4">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl animate-pulse"></div>
@@ -96,8 +96,8 @@ const Auth = () => {
         {/* Left Side - Branding */}
         <div className="hidden lg:block space-y-8">
           <div className="space-y-6">
-            <div className="flex items-center gap-4">
-            <div className="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center border-4 border-orange/20">
+            <div className="flex items-center mb-10 gap-4">
+            <div className="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center border-2 border-white/20">
                 <img 
                   src="/khaata.png" 
                   alt="Khaata Chakki Logo" 
@@ -123,7 +123,7 @@ const Auth = () => {
 
             {/* Features */}
             <div className="space-y-4">
-              <div className="flex items-center gap-3 p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-white/20">
+              <div className="flex items-center gap-3 p-4 bg-white/60 backdrop-blur-sm  hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 rounded-2xl border border-white/20">
                 <div className="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center">
                   <CheckCircle size={20} className="text-white" />
                 </div>
@@ -133,7 +133,7 @@ const Auth = () => {
                 </div>
               </div>
               
-              <div className="flex items-center gap-3 p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-white/20">
+              <div className="flex items-center gap-3 p-4 bg-white/60  hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 backdrop-blur-sm rounded-2xl border border-white/20">
                 <div className="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center">
                   <Shield size={20} className="text-white" />
                 </div>
@@ -143,13 +143,13 @@ const Auth = () => {
                 </div>
               </div>
               
-              <div className="flex items-center gap-3 p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-white/20">
+              <div className="flex items-center gap-3 p-4 bg-white/60 backdrop-blur-sm rounded-2xl border  hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300 border-white/20">
                 <div className="w-10 h-10 bg-purple-500 rounded-xl flex items-center justify-center">
                   <Sparkles size={20} className="text-white" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-slate-800">Smart Analytics</h3>
-                  <p className="text-sm text-slate-600">Get insights to grow your business</p>
+                  <p className="text-sm text-slate-600 ">Get insights to grow your business</p>
                 </div>
               </div>
             </div>
@@ -157,7 +157,7 @@ const Auth = () => {
         </div>
 
         {/* Right Side - Auth Form */}
-        <div className="w-full max-w-md mx-auto lg:mx-0">
+        <div className="w-full max-w-md mx-auto lg:mx-12">
           {/* Mobile Logo */}
           <div className="lg:hidden text-center mb-8">
             <div className="w-20 h-20 bg-white rounded-2xl shadow-2xl flex items-center justify-center mx-auto mb-4 overflow-hidden">
@@ -173,7 +173,7 @@ const Auth = () => {
             <p className="text-slate-600 font-medium">Premium Flour Mill Management</p>
           </div>
 
-          <Card className="border-0 shadow-2xl mt-12 mx-8 bg-white/95 backdrop-blur-xl">
+          <Card className="border-0 shadow-2xl mt-12  bg-white/95 backdrop-blur-xl">
             <CardHeader className="text-center pb-6">
               <CardTitle className="text-2xl font-bold text-slate-800">
                 Welcome
@@ -346,20 +346,20 @@ const Auth = () => {
 
           {/* Footer */}
           <div className="text-center mt-8 space-y-3">
-            <p className="text-sm text-slate-500 bg-white/60 backdrop-blur-sm px-4 py-2 rounded-xl inline-block">
+            <p className="text-sm font-semibold text-slate-700 bg-white/60 backdrop-blur-sm px-4 py-2 rounded-xl inline-block">
                Powered by Supabase Authentication
             </p>
-            <div className="flex items-center justify-center gap-6 text-xs text-slate-400">
+            <div className="flex items-center justify-center gap-6 text-xs font-semibold text-slate-800">
               <span className="flex items-center gap-1">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-green-700 rounded-full animate-pulse"></div>
                 Secure
               </span>
               <span className="flex items-center gap-1">
-                <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-300"></div>
+                <div className="w-2 h-2 bg-blue-700 rounded-full animate-pulse delay-300"></div>
                 Fast
               </span>
               <span className="flex items-center gap-1">
-                <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse delay-500"></div>
+                <div className="w-2 h-2 bg-purple-700 rounded-full animate-pulse delay-500"></div>
                 Reliable
               </span>
             </div>
