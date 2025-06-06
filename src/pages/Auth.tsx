@@ -173,7 +173,7 @@ const Auth = () => {
             <p className="text-slate-600 font-medium">Premium Flour Mill Management</p>
           </div>
 
-          <Card className="border-0 shadow-2xl bg-white/95 backdrop-blur-xl">
+          <Card className="border-0 shadow-2xl mt-8 bg-white/95 backdrop-blur-xl">
             <CardHeader className="text-center pb-6">
               <CardTitle className="text-2xl font-bold text-slate-800">
                 Welcome
