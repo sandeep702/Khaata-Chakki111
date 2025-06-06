@@ -160,7 +160,7 @@ const Auth = () => {
         <div className="w-full max-w-md mx-auto lg:mx-12">
           {/* Mobile Logo */}
           <div className="lg:hidden text-center mb-8">
-            <div className="w-20 h-20 bg-white rounded-2xl shadow-2xl flex items-center justify-center mx-auto mb-4 overflow-hidden">
+            <div className="w-20 h-20 bg-white rounded-2xl shadow-2xl flex items-center justify-center border-2 border-white/20 mx-auto mb-4 overflow-hidden">
               <img 
                 src="/khaata.png" 
                 alt="Khaata Chakki Logo" 
@@ -173,10 +173,10 @@ const Auth = () => {
             <p className="text-slate-600 font-medium">Premium Flour Mill Management</p>
           </div>
 
-          <Card className="border-0 shadow-2xl mt-12  bg-white/95 backdrop-blur-xl">
-            <CardHeader className="text-center pb-6">
+          <Card className="border-0 rounded-2xl shadow-2xl mt-12  bg-white/95 backdrop-blur-xl">
+            <CardHeader className="text-center py-12 pb-8">
               <CardTitle className="text-2xl font-bold text-slate-800">
-                Welcome
+                Welcome Back!
               </CardTitle>
               <p className="text-slate-600">Sign in to your account or create a new one</p>
             </CardHeader>
@@ -201,7 +201,7 @@ const Auth = () => {
                 </TabsList>
 
                 <TabsContent value="login" className="space-y-6">
-                  <form onSubmit={handleLogin} className="space-y-6">
+                  <form onSubmit={handleLogin} className="space-y-6 mb-6">
                     <div className="space-y-2">
                       <Label htmlFor="login-email" className="text-slate-700 font-medium flex items-center gap-2">
                         <Mail size={16} className="text-blue-600" />
@@ -245,12 +245,12 @@ const Auth = () => {
                     
                     <Button
                       type="submit"
-                      className="w-full h-12 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300"
+                      className="w-full h-12  bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300"
                       disabled={isLoading}
                     >
                       {isLoading ? (
                         <div className="flex items-center gap-2">
-                          <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          <div className="w-4 h-4  border-2 border-white/30 border-t-white rounded-full animate-spin" />
                           Signing In...
                         </div>
                       ) : (
