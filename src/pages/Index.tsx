@@ -161,51 +161,36 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-blue-50 to-purple-50">
-      {/* Enhanced Modern Header */}
-      <header className="relative overflow-hidden">
-        {/* Gradient Background */}
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600"></div>
-        <div className="absolute inset-0 bg-black/10"></div>
+  
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      {/* Modern Header */}
+      <header className="relative overflow-hidden bg-white shadow-xl border-b border-slate-200">
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 opacity-90"></div>
+        <div className="absolute inset-0 bg-black/20"></div>
         
-        {/* Decorative Pattern */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full -translate-x-48 -translate-y-48"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/10 rounded-full translate-x-48 translate-y-48"></div>
+        {/* Decorative Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-24 -left-24 w-48 h-48 bg-white/10 rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-white/10 rounded-full blur-3xl"></div>
         </div>
-        
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-8">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-            {/* Left Section - Brand & Info */}
-            <div className="text-center lg:text-left flex-1">
-              <div className="flex items-center justify-center lg:justify-start gap-4 mb-4">
-                <div className="relative">
-                  <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-2xl overflow-hidden">
-                    <img 
-                      src="/khaata.png" 
-                      alt="Khaata Chakki Logo" 
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <h1 className="text-3xl lg:text-4xl font-black text-white mb-1">
-                    Wel🙏 To Khaata Chakki 🥰
-                  </h1>
-                  <p className="text-purple-100 text-sm lg:text-base font-semibold">Premium Flour Mill Management System</p>
-                </div>
+           <div className="relative z-10 max-w-7xl mx-auto px-6 py-6">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+            {/* Brand Section */}
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center border-2 border-white/20">
+                <img 
+                  src="/khaata.png" 
+                  alt="Khaata Chakki Logo" 
+                  className="w-10 h-10"
+                />
               </div>
-              
-              {/* Feature Tags */}
-              <div className="flex flex-wrap justify-center lg:justify-start gap-3 mb-4">
-                <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 text-white px-3 py-1.5 rounded-full text-sm font-semibold">
-                  <Zap size={14} className="text-yellow-300" />
-                  Modern Technology
-                </div>
-                <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 text-white px-3 py-1.5 rounded-full text-sm font-semibold">
-                  <Clock size={14} className="text-green-300" />
-                  All time records
-                </div>
+              <div>
+                <h1 className="text-3xl lg:text-4xl font-black text-white mb-1">
+                  Khaata Chakki
+                </h1>
+                <p className="text-indigo-100 text-sm lg:text-base font-semibold">
+                  Next-Gen Flour Mill Management
+                </p>
               </div>
             </div>
             
