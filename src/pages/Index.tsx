@@ -149,12 +149,16 @@ const Index = () => {
     }
   ];
 
-  if (isLoading) {
+  if (isLoading){
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-100 via-blue-50 to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-indigo-600 mx-auto mb-4"></div>
-          <p className="text-xl font-semibold text-slate-700">Loading your data...</p>
+          <div className="relative">
+            <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-indigo-600 mx-auto mb-6"></div>
+            <div className="absolute inset-0 rounded-full h-32 w-32 border-r-4 border-purple-400 animate-ping mx-auto"></div>
+          </div>
+          <p className="text-2xl font-bold text-slate-700">Loading your workspace...</p>
+          <p className="text-slate-500 mt-2">Preparing everything for you</p>
         </div>
       </div>
     );
@@ -255,31 +259,41 @@ const Index = () => {
           ))}
         </div>
 
-        {/* Modern Tab Navigation */}
-        <div className="bg-white rounded-3xl shadow-xl border border-slate-200/50 mb-8 overflow-hidden">
-          <div className="flex overflow-x-auto">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-3 px-8 py-6 font-bold transition-all duration-300 relative min-w-0 flex-1 ${
-                  activeTab === tab.id
-                    ? 'text-white'
-                    : 'text-slate-600 hover:text-slate-800'
-                }`}
-              >
-                {activeTab === tab.id && (
-                  <div className={`absolute inset-0 bg-gradient-to-r ${tab.color} transition-all duration-500`}></div>
-                )}
-                <div className="relative z-10 flex items-center gap-3">
-                  <tab.icon size={24} className={activeTab === tab.id ? 'animate-pulse' : ''} />
-                  <span className="text-lg">{tab.label}</span>
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        {/* Enhanced Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 -mt-12 relative z-20">
+          {stats.map((stat, index) => (
+            <div key={index} className="group cursor-pointer transform transition-all duration-500 hover:scale-105">
+              <div className={`bg-gradient-to-br ${stat.bgGradient} rounded-3xl p-6 shadow-xl border border-white/50 hover:shadow-2xl transition-all duration-500 relative overflow-hidden`}>
+                {/* Background Pattern */}
+                <div className="absolute inset-0 opacity-5">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-black rounded-full -translate-y-16 translate-x-16"></div>
                 </div>
-              </button>
-            ))}
-          </div>
+                
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className={`w-12 h-12 bg-gradient-to-br ${stat.gradient} rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-12 transition-all duration-300`}>
+                      <stat.icon className="text-white" size={20} />
+                    </div>
+                    <div className="text-right">
+                      <div className="text-2xl font-black text-slate-800 group-hover:scale-110 transition-transform">
+                        {stat.value}
+                      </div>
+                      <div className="text-xs text-green-600 font-bold">
+                        {stat.change} ↗
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-slate-700 font-bold text-base">{stat.title}</div>
+                  <div className="w-full bg-white/60 rounded-full h-2 mt-3">
+                    <div className={`bg-gradient-to-r ${stat.gradient} h-2 rounded-full transition-all duration-1000 group-hover:w-full`} 
+                         style={{ width: '70%' }}></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-
         {/* Tab Content with Enhanced Cards */}
         <div className="space-y-8">
           {activeTab === 'new-customer' && (
