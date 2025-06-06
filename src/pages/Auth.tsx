@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
-import { Eye, EyeOff, LogIn, UserPlus, Mail, Lock, User, Shield } from 'lucide-react';
+import { Eye, EyeOff, LogIn, UserPlus, Mail, Lock, User, ArrowRight, Sparkles, Shield, CheckCircle } from 'lucide-react';
 
 const Auth = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -84,77 +84,116 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 relative overflow-hidden">
-      {/* Animated Background Elements */}
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex items-center justify-center p-4">
+      {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-4 -left-4 w-72 h-72 bg-gradient-to-r from-amber-200/30 to-orange-200/30 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-1/3 -right-8 w-96 h-96 bg-gradient-to-r from-yellow-200/20 to-amber-200/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-gradient-to-r from-orange-200/25 to-red-200/25 rounded-full blur-3xl animate-pulse delay-2000"></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-400/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-3/4 left-3/4 w-64 h-64 bg-purple-400/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
       </div>
 
-      {/* Header */}
-      <header className="relative z-10 bg-white/80 backdrop-blur-md border-b border-amber-200/50 shadow-lg">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-lg transform hover:scale-105 transition-all duration-300 overflow-hidden">
+      <div className="relative z-10 w-full max-w-6xl mx-auto grid lg:grid-cols-2 gap-8 items-center">
+        {/* Left Side - Branding */}
+        <div className="hidden lg:block space-y-8">
+          <div className="space-y-6">
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 bg-white rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden">
                 <img 
                   src="/khaata.png" 
                   alt="Khaata Chakki Logo" 
-                  className="w-full h-full "
+                  className="w-full h-full object-contain"
                 />
               </div>
               <div>
-                <h1 className="text-2xl font-black text-slate-800 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                <h1 className="text-4xl font-black bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                   Khaata Chakki
                 </h1>
-                <p className="text-sm text-slate-600 font-medium">Premium Flour Mill Management</p>
+                <p className="text-slate-600 font-semibold">Premium Flour Mill Management</p>
               </div>
             </div>
-            <div className="flex items-center gap-2 text-sm text-slate-600">
-              <Shield size={16} className="text-green-600" />
-              <span>Secure Authentication</span>
+            
+            <div className="space-y-4">
+              <h2 className="text-3xl font-bold text-slate-800">
+                Transform Your Flour Mill Business
+              </h2>
+              <p className="text-lg text-slate-600 leading-relaxed">
+                Experience the future of flour mill management with our comprehensive platform designed for modern businesses.
+              </p>
+            </div>
+
+            {/* Features */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-white/20">
+                <div className="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center">
+                  <CheckCircle size={20} className="text-white" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-slate-800">Real-time Tracking</h3>
+                  <p className="text-sm text-slate-600">Monitor your orders and inventory in real-time</p>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-3 p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-white/20">
+                <div className="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center">
+                  <Shield size={20} className="text-white" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-slate-800">Secure & Reliable</h3>
+                  <p className="text-sm text-slate-600">Enterprise-grade security for your data</p>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-3 p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-white/20">
+                <div className="w-10 h-10 bg-purple-500 rounded-xl flex items-center justify-center">
+                  <Sparkles size={20} className="text-white" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-slate-800">Smart Analytics</h3>
+                  <p className="text-sm text-slate-600">Get insights to grow your business</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </header>
 
-      {/* Main Content */}
-      <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-80px)] p-6">
-        <div className="w-full max-w-md">
-          <div className="text-center mb-8 animate-fade-in">
-            <div className="mb-6">
-              <div className="w-20 h-20 bg-white rounded-3xl flex items-center justify-center shadow-2xl mx-auto mb-4 transform hover:scale-110 transition-all duration-300 overflow-hidden">
-                <img 
-                  src="/khaata.png" 
-                  alt="Khaata Chakki Logo" 
-                  className="w-full h-full "
-                />
-              </div>
-              <h2 className="text-3xl font-black text-slate-800 mb-2">Welcome Back</h2>
-              <p className="text-slate-600 font-medium">Access your flour mill dashboard</p>
+        {/* Right Side - Auth Form */}
+        <div className="w-full max-w-md mx-auto lg:mx-0">
+          {/* Mobile Logo */}
+          <div className="lg:hidden text-center mb-8">
+            <div className="w-20 h-20 bg-white rounded-3xl shadow-2xl flex items-center justify-center mx-auto mb-4 overflow-hidden">
+              <img 
+                src="/khaata.png" 
+                alt="Khaata Chakki Logo" 
+                className="w-full h-full object-contain"
+              />
             </div>
+            <h1 className="text-3xl font-black bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              Khaata Chakki
+            </h1>
+            <p className="text-slate-600 font-medium">Premium Flour Mill Management</p>
           </div>
 
-          <Card className="shadow-3xl border-0 bg-white/90 backdrop-blur-md transform hover:scale-[1.02] transition-all duration-300">
-            <CardHeader className="space-y-1 pb-6">
-              <CardTitle className="text-2xl font-bold text-center text-slate-800">
-                Get Started
+          <Card className="border-0 shadow-2xl bg-white/95 backdrop-blur-xl">
+            <CardHeader className="text-center pb-6">
+              <CardTitle className="text-2xl font-bold text-slate-800">
+                Welcome
               </CardTitle>
+              <p className="text-slate-600">Sign in to your account or create a new one</p>
             </CardHeader>
+            
             <CardContent>
               <Tabs defaultValue="login" className="w-full">
-                <TabsList className="grid w-full grid-cols-2 mb-8 bg-slate-100 p-1 rounded-xl">
+                <TabsList className="grid w-full grid-cols-2 mb-6 bg-slate-100/80 p-1 rounded-2xl">
                   <TabsTrigger 
                     value="login" 
-                    className="flex items-center gap-2 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-md transition-all duration-200"
+                    className="flex items-center gap-2 rounded-xl data-[state=active]:bg-white data-[state=active]:shadow-lg transition-all duration-300"
                   >
                     <LogIn size={16} />
-                    Login
+                    Sign In
                   </TabsTrigger>
                   <TabsTrigger 
                     value="signup" 
-                    className="flex items-center gap-2 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-md transition-all duration-200"
+                    className="flex items-center gap-2 rounded-xl data-[state=active]:bg-white data-[state=active]:shadow-lg transition-all duration-300"
                   >
                     <UserPlus size={16} />
                     Sign Up
@@ -163,61 +202,61 @@ const Auth = () => {
 
                 <TabsContent value="login" className="space-y-6">
                   <form onSubmit={handleLogin} className="space-y-6">
-                    <div className="space-y-3">
-                      <Label htmlFor="login-email" className="text-slate-700 font-semibold flex items-center gap-2">
-                        <Mail size={16} className="text-amber-600" />
-                        Email Address
+                    <div className="space-y-2">
+                      <Label htmlFor="login-email" className="text-slate-700 font-medium flex items-center gap-2">
+                        <Mail size={16} className="text-blue-600" />
+                        Email
                       </Label>
-                      <div className="relative group">
-                        <Input
-                          id="login-email"
-                          type="email"
-                          placeholder="Enter your email"
-                          value={loginData.email}
-                          onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
-                          className="border-2 border-slate-200 focus:border-amber-500 hover:border-amber-300 transition-all duration-300 rounded-xl h-12 pl-4 pr-4 group-hover:shadow-md"
-                        />
-                      </div>
+                      <Input
+                        id="login-email"
+                        type="email"
+                        placeholder="your@email.com"
+                        value={loginData.email}
+                        onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
+                        className="h-12 border-2 border-slate-200 focus:border-blue-500 rounded-xl transition-all duration-300"
+                      />
                     </div>
-                    <div className="space-y-3">
-                      <Label htmlFor="login-password" className="text-slate-700 font-semibold flex items-center gap-2">
-                        <Lock size={16} className="text-amber-600" />
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="login-password" className="text-slate-700 font-medium flex items-center gap-2">
+                        <Lock size={16} className="text-blue-600" />
                         Password
                       </Label>
-                      <div className="relative group">
+                      <div className="relative">
                         <Input
                           id="login-password"
                           type={showPassword ? 'text' : 'password'}
                           placeholder="Enter your password"
                           value={loginData.password}
                           onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
-                          className="border-2 border-slate-200 focus:border-amber-500 hover:border-amber-300 transition-all duration-300 rounded-xl h-12 pl-4 pr-12 group-hover:shadow-md"
+                          className="h-12 border-2 border-slate-200 focus:border-blue-500 rounded-xl pr-12 transition-all duration-300"
                         />
                         <Button
                           type="button"
                           variant="ghost"
                           size="sm"
-                          className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-amber-100 rounded-lg"
+                          className="absolute right-3 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-blue-100 rounded-lg"
                           onClick={() => setShowPassword(!showPassword)}
                         >
-                          {showPassword ? <EyeOff size={16} className="text-slate-600" /> : <Eye size={16} className="text-slate-600" />}
+                          {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                         </Button>
                       </div>
                     </div>
+                    
                     <Button
                       type="submit"
-                      className="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white font-bold h-12 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200"
+                      className="w-full h-12 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300"
                       disabled={isLoading}
                     >
                       {isLoading ? (
                         <div className="flex items-center gap-2">
                           <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                          Logging in...
+                          Signing In...
                         </div>
                       ) : (
                         <div className="flex items-center gap-2">
-                          <LogIn size={18} />
-                          Login to Dashboard
+                          Sign In
+                          <ArrowRight size={16} />
                         </div>
                       )}
                     </Button>
@@ -226,77 +265,76 @@ const Auth = () => {
 
                 <TabsContent value="signup" className="space-y-6">
                   <form onSubmit={handleSignup} className="space-y-6">
-                    <div className="space-y-3">
-                      <Label htmlFor="signup-name" className="text-slate-700 font-semibold flex items-center gap-2">
-                        <User size={16} className="text-emerald-600" />
+                    <div className="space-y-2">
+                      <Label htmlFor="signup-name" className="text-slate-700 font-medium flex items-center gap-2">
+                        <User size={16} className="text-green-600" />
                         Full Name
                       </Label>
-                      <div className="relative group">
-                        <Input
-                          id="signup-name"
-                          type="text"
-                          placeholder="Enter your full name"
-                          value={signupData.fullName}
-                          onChange={(e) => setSignupData({ ...signupData, fullName: e.target.value })}
-                          className="border-2 border-slate-200 focus:border-emerald-500 hover:border-emerald-300 transition-all duration-300 rounded-xl h-12 pl-4 pr-4 group-hover:shadow-md"
-                        />
-                      </div>
+                      <Input
+                        id="signup-name"
+                        type="text"
+                        placeholder="Your full name"
+                        value={signupData.fullName}
+                        onChange={(e) => setSignupData({ ...signupData, fullName: e.target.value })}
+                        className="h-12 border-2 border-slate-200 focus:border-green-500 rounded-xl transition-all duration-300"
+                      />
                     </div>
-                    <div className="space-y-3">
-                      <Label htmlFor="signup-email" className="text-slate-700 font-semibold flex items-center gap-2">
-                        <Mail size={16} className="text-emerald-600" />
-                        Email Address
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="signup-email" className="text-slate-700 font-medium flex items-center gap-2">
+                        <Mail size={16} className="text-green-600" />
+                        Email
                       </Label>
-                      <div className="relative group">
-                        <Input
-                          id="signup-email"
-                          type="email"
-                          placeholder="Enter your email"
-                          value={signupData.email}
-                          onChange={(e) => setSignupData({ ...signupData, email: e.target.value })}
-                          className="border-2 border-slate-200 focus:border-emerald-500 hover:border-emerald-300 transition-all duration-300 rounded-xl h-12 pl-4 pr-4 group-hover:shadow-md"
-                        />
-                      </div>
+                      <Input
+                        id="signup-email"
+                        type="email"
+                        placeholder="your@email.com"
+                        value={signupData.email}
+                        onChange={(e) => setSignupData({ ...signupData, email: e.target.value })}
+                        className="h-12 border-2 border-slate-200 focus:border-green-500 rounded-xl transition-all duration-300"
+                      />
                     </div>
-                    <div className="space-y-3">
-                      <Label htmlFor="signup-password" className="text-slate-700 font-semibold flex items-center gap-2">
-                        <Lock size={16} className="text-emerald-600" />
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="signup-password" className="text-slate-700 font-medium flex items-center gap-2">
+                        <Lock size={16} className="text-green-600" />
                         Password
                       </Label>
-                      <div className="relative group">
+                      <div className="relative">
                         <Input
                           id="signup-password"
                           type={showPassword ? 'text' : 'password'}
-                          placeholder="Create a password (min 6 characters)"
+                          placeholder="Create a secure password"
                           value={signupData.password}
                           onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
-                          className="border-2 border-slate-200 focus:border-emerald-500 hover:border-emerald-300 transition-all duration-300 rounded-xl h-12 pl-4 pr-12 group-hover:shadow-md"
+                          className="h-12 border-2 border-slate-200 focus:border-green-500 rounded-xl pr-12 transition-all duration-300"
                         />
                         <Button
                           type="button"
                           variant="ghost"
                           size="sm"
-                          className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-emerald-100 rounded-lg"
+                          className="absolute right-3 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-green-100 rounded-lg"
                           onClick={() => setShowPassword(!showPassword)}
                         >
-                          {showPassword ? <EyeOff size={16} className="text-slate-600" /> : <Eye size={16} className="text-slate-600" />}
+                          {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                         </Button>
                       </div>
                     </div>
+                    
                     <Button
                       type="submit"
-                      className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold h-12 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200"
+                      className="w-full h-12 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-300"
                       disabled={isLoading}
                     >
                       {isLoading ? (
                         <div className="flex items-center gap-2">
                           <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                          Creating account...
+                          Creating Account...
                         </div>
                       ) : (
                         <div className="flex items-center gap-2">
-                          <UserPlus size={18} />
                           Create Account
+                          <ArrowRight size={16} />
                         </div>
                       )}
                     </Button>
@@ -306,18 +344,23 @@ const Auth = () => {
             </CardContent>
           </Card>
 
+          {/* Footer */}
           <div className="text-center mt-8 space-y-3">
-            <p className="text-sm text-slate-600 bg-white/60 backdrop-blur-sm px-4 py-2 rounded-xl inline-block shadow-sm">
-              🔒 Secure authentication powered by Supabase
+            <p className="text-sm text-slate-500 bg-white/60 backdrop-blur-sm px-4 py-2 rounded-xl inline-block">
+              🔐 Powered by Supabase Authentication
             </p>
-            <div className="flex items-center justify-center gap-4 text-xs text-slate-500">
+            <div className="flex items-center justify-center gap-6 text-xs text-slate-400">
               <span className="flex items-center gap-1">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                SSL Encrypted
+                Secure
               </span>
               <span className="flex items-center gap-1">
-                <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-500"></div>
-                GDPR Compliant
+                <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-300"></div>
+                Fast
+              </span>
+              <span className="flex items-center gap-1">
+                <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse delay-500"></div>
+                Reliable
               </span>
             </div>
           </div>
