@@ -97,7 +97,7 @@ const Auth = () => {
         <div className="hidden lg:block space-y-8">
           <div className="space-y-6">
             <div className="flex items-center gap-4">
-            <div className="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center border-2 border-white/20">
+            <div className="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center border-2 border-orange/30">
                 <img 
                   src="/khaata.png" 
                   alt="Khaata Chakki Logo" 
