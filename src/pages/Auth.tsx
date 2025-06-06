@@ -160,11 +160,11 @@ const Auth = () => {
         <div className="w-full max-w-md mx-auto lg:mx-0">
           {/* Mobile Logo */}
           <div className="lg:hidden text-center mb-8">
-            <div className="w-20 h-20 bg-white rounded-3xl shadow-2xl flex items-center justify-center mx-auto mb-4 overflow-hidden">
+            <div className="w-20 h-20 bg-white rounded-2xl shadow-2xl flex items-center justify-center mx-auto mb-4 overflow-hidden">
               <img 
                 src="/khaata.png" 
                 alt="Khaata Chakki Logo" 
-                className="w-full h-full "
+                className="w-full h-full rounded-2xl"
               />
             </div>
             <h1 className="text-3xl font-black bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
