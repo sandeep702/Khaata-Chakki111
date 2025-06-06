@@ -125,7 +125,7 @@ const Index = () => {
       icon: Users, 
       gradient: 'from-cyan-400 to-blue-500',
       bgGradient: 'from-cyan-50 to-blue-100',
-      change: '+12%'
+      
     },
     { 
       title: 'Total Revenue', 
@@ -133,7 +133,7 @@ const Index = () => {
       icon: TrendingUp, 
       gradient: 'from-emerald-400 to-green-500',
       bgGradient: 'from-emerald-50 to-green-100',
-      change: '+8%'
+      
     },
     { 
       title: 'Ready Orders', 
@@ -141,7 +141,7 @@ const Index = () => {
       icon: Clock, 
       gradient: 'from-amber-400 to-orange-500',
       bgGradient: 'from-amber-50 to-orange-100',
-      change: '+15%'
+    
     },
     { 
       title: 'Active Mills', 
