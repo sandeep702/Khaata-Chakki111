@@ -101,7 +101,7 @@ const Auth = () => {
                 <img 
                   src="/khaata.png" 
                   alt="Khaata Chakki Logo" 
-                  className="w-full h-full object-contain"
+                  className="w-full h-full "
                 />
               </div>
               <div>
@@ -164,7 +164,7 @@ const Auth = () => {
               <img 
                 src="/khaata.png" 
                 alt="Khaata Chakki Logo" 
-                className="w-full h-full object-contain"
+                className="w-full h-full "
               />
             </div>
             <h1 className="text-3xl font-black bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
@@ -347,7 +347,7 @@ const Auth = () => {
           {/* Footer */}
           <div className="text-center mt-8 space-y-3">
             <p className="text-sm text-slate-500 bg-white/60 backdrop-blur-sm px-4 py-2 rounded-xl inline-block">
-              🔐 Powered by Supabase Authentication
+               Powered by Supabase Authentication
             </p>
             <div className="flex items-center justify-center gap-6 text-xs text-slate-400">
               <span className="flex items-center gap-1">
