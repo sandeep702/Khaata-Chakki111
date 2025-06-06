@@ -185,7 +185,7 @@ const Index = () => {
                 <img 
                   src="/khaata.png" 
                   alt="Khaata Chakki Logo" 
-                  className="w-10 h-10"
+                  className="w-full h-full"
                 />
               </div>
               <div>
