@@ -97,11 +97,11 @@ const Auth = () => {
         <div className="hidden lg:block space-y-8">
           <div className="space-y-6">
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-white rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden">
+              <div className="w-16 h-16 bg-white rounded-2xl shadow-2xl flex items-center justify-center overflow-hidden">
                 <img 
                   src="/khaata.png" 
                   alt="Khaata Chakki Logo" 
-                  className="w-full h-full "
+                  className="w-full h-full rounded-2xl"
                 />
               </div>
               <div>
