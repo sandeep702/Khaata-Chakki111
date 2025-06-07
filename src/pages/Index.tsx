@@ -169,107 +169,68 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
-      {/* Enhanced Modern Header */}
-      <header className="relative overflow-hidden bg-white shadow-2xl border-b border-gradient-to-r from-purple-200 to-pink-200">
-        {/* Animated Background */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 opacity-95"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/20"></div>
-          
-          {/* Floating Particles */}
-          <div className="absolute inset-0 overflow-hidden">
-            {[...Array(15)].map((_, i) => (
-              <div
-                key={i}
-                className="absolute w-2 h-2 bg-white/30 rounded-full animate-pulse"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${i * 0.5}s`,
-                  animationDuration: `${2 + Math.random() * 3}s`
-                }}
-              />
-            ))}
-          </div>
-          
-          {/* Geometric Patterns */}
-          <div className="absolute inset-0">
-            <div className="absolute top-10 left-10 w-20 h-20 border-2 border-white/20 rounded-full animate-spin"></div>
-            <div className="absolute bottom-10 right-10 w-16 h-16 border-2 border-white/20 rounded-full animate-bounce"></div>
-            <div className="absolute top-1/2 left-1/4 w-8 h-8 bg-white/10 rotate-45 animate-pulse"></div>
-          </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      {/* Modern Header */}
+      <header className="relative overflow-hidden bg-white shadow-xl border-b border-slate-200">
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 opacity-90"></div>
+        <div className="absolute inset-0 bg-black/20"></div>
+        
+        {/* Decorative Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-24 -left-24 w-48 h-48 bg-white/10 rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-white/10 rounded-full blur-3xl"></div>
         </div>
         
-        <div className="relative z-10 max-w-7xl mx-auto px-8 py-8">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-            {/* Enhanced Brand Section */}
-            <div className="flex items-center gap-6">
-              <div className="relative group">
-                <div className="absolute -inset-2 bg-gradient-to-r from-white/30 to-white/10 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
-                <div className="relative w-20 h-20 bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl flex items-center justify-center border-2 border-white/30 group-hover:scale-110 transition-all duration-500">
-                  <img 
-                    src="/khaata.png" 
-                    alt="Khaata Chakki Logo" 
-                    className="w-full h-full rounded-3xl"
-                  />
-                </div>
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-6">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+            {/* Brand Section */}
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 bg-white rounded-2xl shadow-lg flex items-center justify-center border-2 border-white/20">
+                <img 
+                  src="/khaata.png" 
+                  alt="Khaata Chakki Logo" 
+                  className="w-full h-full rounded-2xl"
+                />
               </div>
               <div>
-                <h1 className="text-4xl lg:text-6xl font-black text-white mb-2 tracking-tight">
-                  <span className="bg-gradient-to-r from-white via-purple-100 to-pink-100 bg-clip-text text-transparent">
-                    Khaata Chakki
-                  </span>
+                <h1 className="text-3xl lg:text-4xl font-black text-white mb-1">
+                  Khaata Chakki
                 </h1>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-1 bg-gradient-to-r from-white to-purple-200 rounded-full"></div>
-                  <p className="text-purple-100 text-lg lg:text-xl font-bold tracking-wide">
-                    Premium Flour Mill Management
-                  </p>
-                </div>
+                <p className="text-indigo-100 text-sm lg:text-base font-semibold">
+                  Next-Gen Flour Mill Management
+                </p>
               </div>
             </div>
             
-            {/* Enhanced Right Section */}
-            <div className="flex items-center gap-6">
-              {/* Enhanced Date Display */}
-              <div className="relative group">
-                <div className="absolute -inset-2 bg-gradient-to-r from-white/20 to-purple-500/20 rounded-3xl blur-lg group-hover:blur-xl transition-all duration-500"></div>
-                <div className="relative bg-white/20 backdrop-blur-xl border border-white/30 rounded-3xl p-6 text-center shadow-xl">
-                  <div className="text-3xl font-black text-white mb-2">
-                    {new Date().toLocaleDateString('en-US', { 
-                      weekday: 'short', 
-                      month: 'short', 
-                      day: 'numeric' 
-                    })}
-                  </div>
-                  <div className="text-sm text-purple-100 font-bold">
-                    {new Date().toLocaleDateString('en-US', { year: 'numeric' })}
-                  </div>
+            {/* Right Section - Date & User Info */}
+            <div className="flex items-center gap-4">
+              {/* Date Display */}
+              <div className="bg-white/20 backdrop-blur-sm border border-white/30 rounded-2xl p-4 text-center">
+                <div className="text-2xl font-black text-white mb-1">
+                  {new Date().toLocaleDateString('en-US', { 
+                    weekday: 'short', 
+                    month: 'short', 
+                    day: 'numeric' 
+                  })}
+                </div>
+                <div className="text-xs text-purple-100 font-semibold">
+                  {new Date().toLocaleDateString('en-US', { year: 'numeric' })}
                 </div>
               </div>
               
-              {/* Enhanced User Info Card */}
-              <div className="relative group">
-                <div className="absolute -inset-2 bg-gradient-to-r from-white/20 to-pink-500/20 rounded-3xl blur-lg group-hover:blur-xl transition-all duration-500"></div>
-                <div className="relative bg-white/20 backdrop-blur-xl border border-white/30 rounded-3xl p-6 text-center min-w-[220px] shadow-xl">
-                  <div className="flex items-center justify-center mb-3">
-                    <div className="w-10 h-10 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center">
-                      <span className="text-white font-bold">👤</span>
-                    </div>
-                  </div>
-                  <p className="text-white font-bold mb-2 text-sm">Welcome back!</p>
-                  <p className="text-purple-100 text-xs mb-4 truncate font-medium">{user?.email}</p>
-                  <Button
-                    onClick={handleLogout}
-                    variant="outline"
-                    size="sm"
-                    className="bg-white/20 border-white/30 text-white hover:bg-white/30 transition-all duration-300 text-sm px-6 py-2 rounded-xl font-bold backdrop-blur-sm"
-                  >
-                    <LogOut size={16} className="mr-2" />
-                    Logout
-                  </Button>
-                </div>
+              {/* User Info Card */}
+              <div className="bg-white/20 backdrop-blur-sm border border-white/30 rounded-2xl p-4 text-center min-w-[200px]">
+                <p className="text-white font-bold mb-1 text-sm">Welcome back!</p>
+                <p className="text-indigo-100 text-xs mb-3 truncate">{user?.email}</p>
+                <Button
+                  onClick={handleLogout}
+                  variant="outline"
+                  size="sm"
+                  className="bg-white/20 border-white/30 text-white hover:bg-white/30 transition-all duration-200 text-xs px-4"
+                >
+                  <LogOut size={14} className="mr-2" />
+                  Logout
+                </Button>
               </div>
             </div>
           </div>
@@ -338,111 +299,24 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Enhanced Tab Content */}
+        {/* Tab Content with Enhanced Cards */}
         <div className="space-y-8">
           {activeTab === 'new-customer' && (
-            <div className="relative group">
-              {/* Ultra Premium Background Effects */}
-              <div className="absolute -inset-12 bg-gradient-to-r from-violet-400/30 via-purple-400/30 to-fuchsia-400/30 rounded-[4rem] blur-[5rem] group-hover:blur-[7rem] transition-all duration-1500 opacity-70 animate-pulse"></div>
-              <div className="absolute -inset-8 bg-gradient-to-r from-emerald-300/40 via-teal-300/40 to-cyan-300/40 rounded-[3.5rem] blur-[4rem] transition-all duration-1000 opacity-50"></div>
-              <div className="absolute -inset-4 bg-gradient-to-r from-rose-300/30 via-pink-300/30 to-purple-300/30 rounded-[3rem] blur-3xl transition-all duration-800 opacity-60"></div>
-              
-              <div className="relative bg-white/95 backdrop-blur-3xl rounded-[3rem] shadow-[0_40px_120px_rgba(0,0,0,0.15)] border-2 border-white/70 overflow-hidden hover:shadow-[0_60px_150px_rgba(0,0,0,0.2)] transition-all duration-1000 group-hover:scale-[1.01]">
-                {/* Ultra Enhanced Header */}
-                <div className="relative bg-gradient-to-br from-violet-500 via-purple-600 to-fuchsia-700 px-16 py-20 overflow-hidden">
-                  {/* Advanced Background Pattern */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-transparent to-black/20"></div>
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(255,255,255,0.2),transparent_70%)]"></div>
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(255,255,255,0.1),transparent_60%)]"></div>
-                  
-                  {/* Animated Grid Pattern */}
-                  <div className="absolute inset-0 opacity-10">
-                    <div className="h-full w-full bg-[linear-gradient(rgba(255,255,255,0.3)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.3)_1px,transparent_1px)] bg-[size:50px_50px] animate-pulse"></div>
+            <div className="bg-white rounded-3xl shadow-xl border border-slate-200/50 overflow-hidden">
+              <div className="bg-gradient-to-r from-emerald-400 to-teal-500 px-8 py-8 relative overflow-hidden">
+                <div className="absolute inset-0 bg-black/10"></div>
+                <div className="relative z-10 flex items-center gap-4 text-white">
+                  <div className="w-14 h-14 bg-white/20 rounded-3xl flex items-center justify-center backdrop-blur-sm">
+                    <Plus size={32} />
                   </div>
-                  
-                  {/* Floating Magic Elements */}
-                  <div className="absolute inset-0 overflow-hidden">
-                    {[...Array(25)].map((_, i) => (
-                      <div
-                        key={i}
-                        className="absolute text-white/20 animate-float"
-                        style={{
-                          left: `${5 + (i % 5) * 20}%`,
-                          top: `${10 + Math.floor(i / 5) * 20}%`,
-                          animationDelay: `${i * 0.4}s`,
-                          animationDuration: `${6 + Math.random() * 4}s`,
-                          fontSize: `${1 + Math.random()}rem`
-                        }}
-                      >
-                        {['✨', '⭐', '💫', '🌟', '✊'][Math.floor(Math.random() * 5)]}
-                      </div>
-                    ))}
-                  </div>
-                  
-                  {/* Orbiting Elements */}
-                  <div className="absolute inset-0">
-                    <div className="absolute top-1/4 left-1/4 w-6 h-6 bg-white/30 rounded-full animate-ping"></div>
-                    <div className="absolute bottom-1/3 right-1/4 w-4 h-4 bg-white/20 rounded-full animate-bounce delay-1000"></div>
-                    <div className="absolute top-2/3 left-3/4 w-5 h-5 bg-white/25 rounded-full animate-pulse delay-500"></div>
-                  </div>
-                  
-                  <div className="relative z-10 flex items-center gap-10 text-white">
-                    <div className="relative group/icon">
-                      <div className="absolute -inset-6 bg-white/30 rounded-[3rem] blur-3xl group-hover/icon:blur-[4rem] transition-all duration-700"></div>
-                      <div className="relative w-28 h-28 bg-white/25 rounded-[2.5rem] flex items-center justify-center backdrop-blur-2xl hover:scale-125 hover:rotate-12 transition-all duration-700 shadow-[0_20px_60px_rgba(0,0,0,0.3)] border border-white/30 group-hover/icon:shadow-[0_30px_80px_rgba(255,255,255,0.2)]">
-                        <Plus size={48} className="animate-pulse" />
-                        <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-[2.5rem]"></div>
-                      </div>
-                    </div>
-                    <div>
-                      <h2 className="text-7xl font-black mb-6 bg-gradient-to-r from-white via-purple-100 to-fuchsia-100 bg-clip-text text-transparent tracking-tight leading-tight">
-                        Create New Customer
-                      </h2>
-                      <p className="text-purple-100 text-3xl font-bold leading-relaxed tracking-wide">
-                        ✨ Premium customer record creation with magical experience ✨
-                      </p>
-                      <div className="flex items-center gap-4 mt-6">
-                        <div className="flex gap-2">
-                          {[...Array(5)].map((_, i) => (
-                            <div key={i} className="w-3 h-3 bg-white/40 rounded-full animate-pulse" style={{ animationDelay: `${i * 0.2}s` }}></div>
-                          ))}
-                        </div>
-                        <span className="text-purple-200 text-lg font-semibold">Premium Experience</span>
-                      </div>
-                    </div>
+                  <div>
+                    <h2 className="text-4xl font-black mb-2">Add New Customer</h2>
+                    <p className="text-emerald-100 text-xl font-semibold">Create a fresh customer record with ease</p>
                   </div>
                 </div>
-                
-                {/* Ultra Enhanced Form Container */}
-                <div className="p-16 bg-gradient-to-br from-purple-50/30 via-white/50 to-fuchsia-50/30 relative overflow-hidden">
-                  {/* Advanced Decorative Elements */}
-                  <div className="absolute top-8 right-8 w-32 h-32 bg-gradient-to-r from-purple-200/40 to-fuchsia-200/40 rounded-full blur-3xl animate-pulse"></div>
-                  <div className="absolute bottom-8 left-8 w-24 h-24 bg-gradient-to-r from-violet-200/40 to-purple-200/40 rounded-full blur-2xl animate-bounce"></div>
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-gradient-to-r from-emerald-200/20 to-teal-200/20 rounded-full blur-[6rem] animate-pulse"></div>
-                  
-                  {/* Floating Sparkles */}
-                  <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    {[...Array(15)].map((_, i) => (
-                      <div
-                        key={i}
-                        className="absolute text-purple-300/60 animate-float"
-                        style={{
-                          left: `${Math.random() * 100}%`,
-                          top: `${Math.random() * 100}%`,
-                          animationDelay: `${i * 0.6}s`,
-                          animationDuration: `${8 + Math.random() * 4}s`,
-                          fontSize: '1.5rem'
-                        }}
-                      >
-                        ✨
-                      </div>
-                    ))}
-                  </div>
-                  
-                  <div className="relative z-10">
-                    <CustomerForm onSave={handleSaveRecord} />
-                  </div>
-                </div>
+              </div>
+              <div className="p-8 bg-gradient-to-br from-emerald-50/50 to-teal-50/50">
+                <CustomerForm onSave={handleSaveRecord} />
               </div>
             </div>
           )}
@@ -492,121 +366,21 @@ const Index = () => {
           )}
 
           {activeTab === 'analytics' && (
-            <div className="relative group">
-              {/* Ultra Premium Analytics Background Effects */}
-              <div className="absolute -inset-12 bg-gradient-to-r from-orange-400/30 via-red-400/30 to-pink-400/30 rounded-[4rem] blur-[5rem] group-hover:blur-[7rem] transition-all duration-1500 opacity-70 animate-pulse"></div>
-              <div className="absolute -inset-8 bg-gradient-to-r from-amber-300/40 via-orange-300/40 to-red-300/40 rounded-[3.5rem] blur-[4rem] transition-all duration-1000 opacity-50"></div>
-              <div className="absolute -inset-4 bg-gradient-to-r from-yellow-300/30 via-orange-300/30 to-pink-300/30 rounded-[3rem] blur-3xl transition-all duration-800 opacity-60"></div>
-              
-              <div className="relative bg-white/95 backdrop-blur-3xl rounded-[3rem] shadow-[0_40px_120px_rgba(0,0,0,0.15)] border-2 border-white/70 overflow-hidden hover:shadow-[0_60px_150px_rgba(0,0,0,0.2)] transition-all duration-1000 group-hover:scale-[1.01]">
-                {/* Ultra Enhanced Analytics Header */}
-                <div className="relative bg-gradient-to-br from-orange-500 via-red-600 to-pink-700 px-16 py-20 overflow-hidden">
-                  {/* Advanced Background Pattern for Analytics */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-transparent to-black/20"></div>
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_35%,rgba(255,255,255,0.2),transparent_70%)]"></div>
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_65%,rgba(255,255,255,0.1),transparent_60%)]"></div>
-                  
-                  {/* Animated Chart-like Background Elements */}
-                  <div className="absolute inset-0 opacity-20">
-                    {[...Array(12)].map((_, i) => (
-                      <div
-                        key={i}
-                        className="absolute bg-white/40 rounded-t-xl animate-pulse"
-                        style={{
-                          left: `${8 + i * 7}%`,
-                          bottom: '15%',
-                          width: '12px',
-                          height: `${25 + Math.random() * 50}%`,
-                          animationDelay: `${i * 0.2}s`,
-                          animationDuration: `${2 + Math.random() * 2}s`
-                        }}
-                      />
-                    ))}
+            <div className="bg-white rounded-3xl shadow-xl border border-slate-200/50 overflow-hidden">
+              <div className="bg-gradient-to-r from-orange-400 to-red-500 px-8 py-8 relative overflow-hidden">
+                <div className="absolute inset-0 bg-black/10"></div>
+                <div className="relative z-10 flex items-center gap-4 text-white">
+                  <div className="w-14 h-14 bg-white/20 rounded-3xl flex items-center justify-center backdrop-blur-sm">
+                    <TrendingUp size={32} />
                   </div>
-                  
-                  {/* Floating Analytics Icons */}
-                  <div className="absolute inset-0 overflow-hidden">
-                    {[...Array(20)].map((_, i) => (
-                      <div
-                        key={i}
-                        className="absolute text-white/25 animate-float"
-                        style={{
-                          left: `${5 + (i % 4) * 22}%`,
-                          top: `${10 + Math.floor(i / 4) * 18}%`,
-                          animationDelay: `${i * 0.5}s`,
-                          animationDuration: `${7 + Math.random() * 3}s`,
-                          fontSize: `${1.2 + Math.random() * 0.8}rem`
-                        }}
-                      >
-                        {['📊', '📈', '💰', '⚡', '🎯'][Math.floor(Math.random() * 5)]}
-                      </div>
-                    ))}
-                  </div>
-                  
-                  {/* Data Flow Animation */}
-                  <div className="absolute inset-0">
-                    <div className="absolute top-1/3 left-1/5 w-8 h-8 bg-white/30 rounded-full animate-ping"></div>
-                    <div className="absolute bottom-1/4 right-1/5 w-6 h-6 bg-white/20 rounded-full animate-bounce delay-700"></div>
-                    <div className="absolute top-3/4 left-2/3 w-7 h-7 bg-white/25 rounded-full animate-pulse delay-300"></div>
-                  </div>
-                  
-                  <div className="relative z-10 flex items-center gap-10 text-white">
-                    <div className="relative group/icon">
-                      <div className="absolute -inset-6 bg-white/30 rounded-[3rem] blur-3xl group-hover/icon:blur-[4rem] transition-all duration-700"></div>
-                      <div className="relative w-28 h-28 bg-white/25 rounded-[2.5rem] flex items-center justify-center backdrop-blur-2xl hover:scale-125 hover:rotate-12 transition-all duration-700 shadow-[0_20px_60px_rgba(0,0,0,0.3)] border border-white/30 group-hover/icon:shadow-[0_30px_80px_rgba(255,255,255,0.2)]">
-                        <TrendingUp size={48} className="animate-pulse" />
-                        <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-[2.5rem]"></div>
-                      </div>
-                    </div>
-                    <div>
-                      <h2 className="text-7xl font-black mb-6 bg-gradient-to-r from-white via-orange-100 to-pink-100 bg-clip-text text-transparent tracking-tight leading-tight">
-                        Financial Analytics
-                      </h2>
-                      <p className="text-orange-100 text-3xl font-bold leading-relaxed tracking-wide">
-                        📊 Advanced revenue insights and business intelligence 📈
-                      </p>
-                      <div className="flex items-center gap-4 mt-6">
-                        <div className="flex gap-2">
-                          {[...Array(5)].map((_, i) => (
-                            <div key={i} className="w-3 h-3 bg-white/40 rounded-full animate-pulse" style={{ animationDelay: `${i * 0.2}s` }}></div>
-                          ))}
-                        </div>
-                        <span className="text-orange-200 text-lg font-semibold">Real-time Data</span>
-                      </div>
-                    </div>
+                  <div>
+                    <h2 className="text-4xl font-black mb-2">Financial Analytics</h2>
+                    <p className="text-orange-100 text-xl font-semibold">Revenue insights and business metrics</p>
                   </div>
                 </div>
-                
-                {/* Ultra Enhanced Analytics Container */}
-                <div className="p-16 bg-gradient-to-br from-orange-50/30 via-white/50 to-red-50/30 relative overflow-hidden">
-                  {/* Advanced Decorative Elements for Analytics */}
-                  <div className="absolute top-8 right-8 w-32 h-32 bg-gradient-to-r from-orange-200/40 to-red-200/40 rounded-full blur-3xl animate-pulse"></div>
-                  <div className="absolute bottom-8 left-8 w-24 h-24 bg-gradient-to-r from-amber-200/40 to-orange-200/40 rounded-full blur-2xl animate-bounce"></div>
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-gradient-to-r from-yellow-200/20 to-orange-200/20 rounded-full blur-[6rem] animate-pulse"></div>
-                  
-                  {/* Floating Chart Elements */}
-                  <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    {[...Array(10)].map((_, i) => (
-                      <div
-                        key={i}
-                        className="absolute text-orange-300/60 animate-float"
-                        style={{
-                          left: `${Math.random() * 100}%`,
-                          top: `${Math.random() * 100}%`,
-                          animationDelay: `${i * 0.8}s`,
-                          animationDuration: `${10 + Math.random() * 5}s`,
-                          fontSize: '2rem'
-                        }}
-                      >
-                        📊
-                      </div>
-                    ))}
-                  </div>
-                  
-                  <div className="relative z-10">
-                    <AmountSection records={records} totalRevenue={totalRevenue} />
-                  </div>
-                </div>
+              </div>
+              <div className="p-8 bg-gradient-to-br from-orange-50/50 to-red-50/50">
+                <AmountSection records={records} totalRevenue={totalRevenue} />
               </div>
             </div>
           )}
