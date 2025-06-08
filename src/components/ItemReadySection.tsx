@@ -1,41 +1,42 @@
-
 import React from 'react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 
 interface ItemReadySectionProps {
-  isReady: boolean;
-  setIsReady: (value: boolean) => void;
+  isReady: boolean | null;
+  setIsReady: (value: boolean | null) => void;
+  showValidationError: boolean;
 }
 
 const ItemReadySection: React.FC<ItemReadySectionProps> = ({
   isReady,
   setIsReady,
+  showValidationError,
 }) => {
-  const handleProcessingChange = (checked: boolean) => {
-    if (checked && isReady) {
-      toast.error('Cannot select both options!', {
-        description: 'Please select either "Item is still processing" OR "Item is ready for pickup"',
+  // Show error if validation fails
+  React.useEffect(() => {
+    if (showValidationError && isReady === null) {
+      toast.error('Selection Required', {
+        description: 'Please select either "Item is processing" or "Item is ready"',
         duration: 3000,
       });
-      return;
     }
+  }, [showValidationError, isReady]);
+
+  const handleProcessingChange = (checked: boolean) => {
     if (checked) {
       setIsReady(false);
+    } else {
+      setIsReady(null);
     }
   };
 
   const handleReadyChange = (checked: boolean) => {
-    if (checked && !isReady) {
-      toast.error('Cannot select both options!', {
-        description: 'Please select either "Item is still processing" OR "Item is ready for pickup"',
-        duration: 3000,
-      });
-      return;
-    }
     if (checked) {
       setIsReady(true);
+    } else {
+      setIsReady(null);
     }
   };
 
@@ -52,48 +53,44 @@ const ItemReadySection: React.FC<ItemReadySectionProps> = ({
           <h3 className="text-xl font-bold text-emerald-800">Order Status</h3>
         </div>
 
-        {/* Both checkboxes in same row */}
+        {/* Checkboxes */}
         <div className="flex items-center justify-between p-4 bg-white/60 rounded-xl border border-emerald-200 hover:bg-white/80 transition-all duration-300">
-          {/* Processing Option - Left Side */}
+          {/* Processing Option */}
           <div className="flex items-center space-x-3">
             <Checkbox
               id="isProcessing"
-              checked={!isReady}
+              checked={isReady === false}
               onCheckedChange={handleProcessingChange}
               className="border-2 border-orange-500 data-[state=checked]:bg-orange-500 data-[state=checked]:border-orange-500 transition-all duration-300 hover:scale-110 w-6 h-6 rounded-md shadow-md"
             />
-            <Label 
-              htmlFor="isProcessing" 
-              className="text-lg font-semibold text-gray-700 cursor-pointer flex items-center gap-2"
-            >
+            <Label htmlFor="isProcessing" className="text-lg font-semibold text-gray-700 cursor-pointer flex items-center gap-2">
               <span className="text-2xl">⏳</span>
               <span>Item is still processing</span>
             </Label>
           </div>
 
-          {/* Ready Option - Right Side */}
+          {/* Ready Option */}
           <div className="flex items-center space-x-3">
             <Checkbox
               id="isReady"
-              checked={isReady}
+              checked={isReady === true}
               onCheckedChange={handleReadyChange}
               className="border-2 border-emerald-600 data-[state=checked]:bg-emerald-600 data-[state=checked]:border-emerald-600 transition-all duration-300 hover:scale-110 w-6 h-6 rounded-md shadow-md"
             />
-            <Label 
-              htmlFor="isReady" 
-              className="text-lg font-semibold text-gray-700 cursor-pointer flex items-center gap-2"
-            >
+            <Label htmlFor="isReady" className="text-lg font-semibold text-gray-700 cursor-pointer flex items-center gap-2">
               <span className="text-2xl">✅</span>
               <span>Item is ready for pickup</span>
             </Label>
           </div>
         </div>
 
-        {/* Status Display - Centered */}
+        {/* Status Display */}
         <div className="flex justify-center">
           <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200 text-center">
             <p className="text-sm text-emerald-700 font-medium">
-              Current Status: {isReady ? '✅ Ready for pickup' : !isReady && isReady !== undefined ? '⏳ Still processing' : '⚪ Please select status'}
+              {isReady === true ? '✅ Ready for pickup' : 
+               isReady === false ? '⏳ Still processing' : 
+               '⚪ Status not selected'}
             </p>
           </div>
         </div>
