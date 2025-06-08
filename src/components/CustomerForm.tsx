@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { CustomerRecord, CustomerFormData } from '../types/Customer';
@@ -7,6 +6,7 @@ import WheatFlourSection from './WheatFlourSection';
 import PaymentSection from './PaymentSection';
 import ItemReadySection from './ItemReadySection';
 import { Save, RotateCcw, Sparkles } from 'lucide-react';
+import { toast } from '@/hooks/use-toast';
 
 interface CustomerFormProps {
   onSave: (record: Omit<CustomerRecord, 'customerId'>) => void;
@@ -19,9 +19,10 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ onSave }) => {
     wheatWeight: '',
     flourType: 'Atta',
     paymentMethod: 'Cash',
-    isReady: false,
+    isReady: null, // Changed from false to null
   });
 
+  const [showValidationError, setShowValidationError] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
@@ -30,13 +31,24 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ onSave }) => {
     setTotalPrice(weight * fixedRate);
   }, [formData.wheatWeight]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!formData.customerName.trim() || !formData.wheatWeight) {
-      alert('Please fill in all required fields');
-      return;
-    }
+ const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+  
+  if (!formData.customerName.trim() || !formData.wheatWeight) {
+    alert('Please fill in all required fields');
+    return;
+  }
+
+  // Validate checkbox selection
+  if (formData.isReady === null) {
+    setShowValidationError(true);
+   toast({
+  title: "Validation Error",
+  description: "Please select order status",
+  variant: "destructive"
+});
+
+  }
 
     const record: Omit<CustomerRecord, 'customerId'> = {
       customerName: formData.customerName.trim(),
@@ -47,7 +59,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ onSave }) => {
       totalPrice,
       paymentMethod: formData.paymentMethod,
       paymentStatus: formData.paymentMethod === 'Cash' ? 'Paid' : 'Pending',
-      isReady: formData.isReady,
+      isReady: formData.isReady as boolean,
       createdAt: new Date().toISOString(),
     };
 
@@ -62,8 +74,9 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ onSave }) => {
       wheatWeight: '',
       flourType: 'Atta',
       paymentMethod: 'Cash',
-      isReady: false,
+      isReady: null, // Reset to null
     });
+    setShowValidationError(false);
   };
 
   return (
@@ -78,7 +91,8 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ onSave }) => {
         </div>
         <ItemReadySection
           isReady={formData.isReady}
-          setIsReady={(value: boolean) => setFormData({ ...formData, isReady: value })}
+          setIsReady={(value: boolean | null) => setFormData({ ...formData, isReady: value })}
+          showValidationError={showValidationError}
         />
       </div>
 
