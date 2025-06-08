@@ -21,7 +21,9 @@ const ItemReadySection: React.FC<ItemReadySectionProps> = ({
       });
       return;
     }
-    setIsReady(!checked);
+    if (checked) {
+      setIsReady(false);
+    }
   };
 
   const handleReadyChange = (checked: boolean) => {
@@ -32,7 +34,9 @@ const ItemReadySection: React.FC<ItemReadySectionProps> = ({
       });
       return;
     }
-    setIsReady(checked);
+    if (checked) {
+      setIsReady(true);
+    }
   };
 
   return (
@@ -48,45 +52,50 @@ const ItemReadySection: React.FC<ItemReadySectionProps> = ({
           <h3 className="text-xl font-bold text-emerald-800">Order Status</h3>
         </div>
 
-        {/* Processing Option */}
-        <div className="flex items-center space-x-4 p-4 bg-white/60 rounded-xl border border-emerald-200 hover:bg-white/80 transition-all duration-300">
-          <Checkbox
-            id="isProcessing"
-            checked={!isReady}
-            onCheckedChange={handleProcessingChange}
-            className="border-2 border-orange-500 data-[state=checked]:bg-orange-500 data-[state=checked]:border-orange-500 transition-all duration-300 hover:scale-110 w-6 h-6 rounded-md shadow-md"
-          />
-          <Label 
-            htmlFor="isProcessing" 
-            className="text-lg font-semibold text-gray-700 cursor-pointer flex items-center gap-3"
-          >
-            <span className="text-2xl">⏳</span>
-            <span>Item is still processing</span>
-          </Label>
+        {/* Both checkboxes in same row */}
+        <div className="flex items-center justify-between p-4 bg-white/60 rounded-xl border border-emerald-200 hover:bg-white/80 transition-all duration-300">
+          {/* Processing Option - Left Side */}
+          <div className="flex items-center space-x-3">
+            <Checkbox
+              id="isProcessing"
+              checked={!isReady}
+              onCheckedChange={handleProcessingChange}
+              className="border-2 border-orange-500 data-[state=checked]:bg-orange-500 data-[state=checked]:border-orange-500 transition-all duration-300 hover:scale-110 w-6 h-6 rounded-md shadow-md"
+            />
+            <Label 
+              htmlFor="isProcessing" 
+              className="text-lg font-semibold text-gray-700 cursor-pointer flex items-center gap-2"
+            >
+              <span className="text-2xl">⏳</span>
+              <span>Item is still processing</span>
+            </Label>
+          </div>
+
+          {/* Ready Option - Right Side */}
+          <div className="flex items-center space-x-3">
+            <Checkbox
+              id="isReady"
+              checked={isReady}
+              onCheckedChange={handleReadyChange}
+              className="border-2 border-emerald-600 data-[state=checked]:bg-emerald-600 data-[state=checked]:border-emerald-600 transition-all duration-300 hover:scale-110 w-6 h-6 rounded-md shadow-md"
+            />
+            <Label 
+              htmlFor="isReady" 
+              className="text-lg font-semibold text-gray-700 cursor-pointer flex items-center gap-2"
+            >
+              <span className="text-2xl">✅</span>
+              <span>Item is ready for pickup</span>
+            </Label>
+          </div>
         </div>
 
-        {/* Ready Option */}
-        <div className="flex items-center space-x-4 p-4 bg-white/60 rounded-xl border border-emerald-200 hover:bg-white/80 transition-all duration-300">
-          <Checkbox
-            id="isReady"
-            checked={isReady}
-            onCheckedChange={handleReadyChange}
-            className="border-2 border-emerald-600 data-[state=checked]:bg-emerald-600 data-[state=checked]:border-emerald-600 transition-all duration-300 hover:scale-110 w-6 h-6 rounded-md shadow-md"
-          />
-          <Label 
-            htmlFor="isReady" 
-            className="text-lg font-semibold text-gray-700 cursor-pointer flex items-center gap-3"
-          >
-            <span className="text-2xl">✅</span>
-            <span>Item is ready for pickup</span>
-          </Label>
-        </div>
-
-        {/* Status Display */}
-        <div className="mt-4 p-3 bg-emerald-50 rounded-lg border border-emerald-200">
-          <p className="text-sm text-emerald-700 font-medium">
-            Current Status: {isReady ? '✅ Ready for pickup' : '⏳ Still processing'}
-          </p>
+        {/* Status Display - Centered */}
+        <div className="flex justify-center">
+          <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200 text-center">
+            <p className="text-sm text-emerald-700 font-medium">
+              Current Status: {isReady ? '✅ Ready for pickup' : !isReady && isReady !== undefined ? '⏳ Still processing' : '⚪ Please select status'}
+            </p>
+          </div>
         </div>
       </div>
     </div>
