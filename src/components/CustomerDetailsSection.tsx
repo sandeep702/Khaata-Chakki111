@@ -18,43 +18,41 @@ const CustomerDetailsSection: React.FC<CustomerDetailsSectionProps> = ({
   setCustomerType,
 }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div className="group">
-        <Label htmlFor="customerName" className="text-rose-700 font-bold mb-3 block group-hover:text-rose-800 transition-colors text-lg">
-          👤 Customer Name *
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="space-y-3">
+        <Label htmlFor="customerName" className="text-slate-700 font-semibold text-sm flex items-center gap-2">
+          👤 Customer Name <span className="text-red-500">*</span>
         </Label>
         <Input
           id="customerName"
           value={customerName}
           onChange={(e) => setCustomerName(e.target.value)}
           required
-          className="border-3 border-rose-200 focus:border-rose-400 hover:border-rose-300 transition-colors duration-300 rounded-2xl shadow-lg focus:shadow-xl h-14 text-lg bg-white/80 backdrop-blur-sm"
+          className="h-12 rounded-xl border-2 border-slate-200 hover:border-blue-300 focus:border-blue-500 transition-colors duration-200 text-base"
           placeholder="Enter customer name"
         />
       </div>
       
-      <div className="group">
-        <Label htmlFor="customerType" className="text-orange-700 font-bold mb-3 block group-hover:text-orange-800 transition-colors text-lg">
+      <div className="space-y-3">
+        <Label htmlFor="customerType" className="text-slate-700 font-semibold text-sm flex items-center gap-2">
           🏷️ Customer Type
         </Label>
         <Select
           value={customerType}
           onValueChange={(value: any) => setCustomerType(value)}
         >
-          <SelectTrigger className="border-3 border-orange-200 focus:border-orange-400 hover:border-orange-300 transition-colors duration-300 rounded-2xl shadow-lg focus:shadow-xl h-14 text-lg bg-white/80 backdrop-blur-sm">
+          <SelectTrigger className="h-12 rounded-xl border-2 border-slate-200 hover:border-orange-300 focus:border-orange-500 transition-colors duration-200 text-base bg-white">
             <SelectValue />
           </SelectTrigger>
-          <SelectContent className="bg-white/95 backdrop-blur-sm border-2 border-orange-200 rounded-2xl shadow-2xl">
-            <SelectItem value="Regular" className="hover:bg-rose-50 transition-colors py-4 text-lg rounded-xl m-1">
+          <SelectContent className="bg-white border-2 border-slate-200 rounded-xl shadow-lg">
+            <SelectItem value="Regular" className="hover:bg-rose-50 transition-colors py-3 text-base rounded-lg m-1">
               <span className="flex items-center gap-3">
-                <span className="text-rose-600 text-2xl">⭐</span>
-                Regular Customer
+                ⭐ Regular Customer
               </span>
             </SelectItem>
-            <SelectItem value="Temporary" className="hover:bg-orange-50 transition-colors py-4 text-lg rounded-xl m-1">
+            <SelectItem value="Temporary" className="hover:bg-orange-50 transition-colors py-3 text-base rounded-lg m-1">
               <span className="flex items-center gap-3">
-                <span className="text-orange-600 text-2xl">🕐</span>
-                Temporary Customer
+                🕐 Temporary Customer
               </span>
             </SelectItem>
           </SelectContent>

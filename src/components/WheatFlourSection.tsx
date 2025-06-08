@@ -21,10 +21,10 @@ const WheatFlourSection: React.FC<WheatFlourSectionProps> = ({
 }) => {
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div className="group">
-          <Label htmlFor="wheatWeight" className="text-emerald-700 font-bold mb-3 block group-hover:text-emerald-800 transition-colors text-lg">
-            ⚖️ Weight (kg) *
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="space-y-3">
+          <Label htmlFor="wheatWeight" className="text-slate-700 font-semibold text-sm flex items-center gap-2">
+            ⚖️ Weight (kg) <span className="text-red-500">*</span>
           </Label>
           <Input
             id="wheatWeight"
@@ -34,72 +34,67 @@ const WheatFlourSection: React.FC<WheatFlourSectionProps> = ({
             value={wheatWeight}
             onChange={(e) => setWheatWeight(e.target.value)}
             required
-            className="border-3 border-emerald-200 focus:border-emerald-400 hover:border-emerald-300 transition-colors duration-300 rounded-2xl shadow-lg focus:shadow-xl h-14 text-lg bg-white/80 backdrop-blur-sm"
+            className="h-12 rounded-xl border-2 border-slate-200 hover:border-emerald-300 focus:border-emerald-500 transition-colors duration-200 text-base"
             placeholder="0.00"
           />
         </div>
         
-        <div className="group">
-          <Label htmlFor="flourType" className="text-amber-700 font-bold mb-3 block group-hover:text-amber-800 transition-colors text-lg">
+        <div className="space-y-3">
+          <Label htmlFor="flourType" className="text-slate-700 font-semibold text-sm flex items-center gap-2">
             🌾 Flour Type
           </Label>
           <Select
             value={flourType}
             onValueChange={(value: any) => setFlourType(value)}
           >
-            <SelectTrigger className="border-3 border-amber-200 focus:border-amber-400 hover:border-amber-300 transition-colors duration-300 rounded-2xl shadow-lg focus:shadow-xl h-14 text-lg bg-white/80 backdrop-blur-sm">
+            <SelectTrigger className="h-12 rounded-xl border-2 border-slate-200 hover:border-amber-300 focus:border-amber-500 transition-colors duration-200 text-base bg-white">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent className="bg-white/95 backdrop-blur-sm border-2 border-amber-200 rounded-2xl shadow-2xl">
-              <SelectItem value="Atta" className="hover:bg-orange-50 transition-colors py-4 text-lg rounded-xl m-1">
+            <SelectContent className="bg-white border-2 border-slate-200 rounded-xl shadow-lg">
+              <SelectItem value="Atta" className="hover:bg-orange-50 transition-colors py-3 text-base rounded-lg m-1">
                 <span className="flex items-center gap-3">
-                  <span className="text-2xl">🌾</span>
-                  Atta
+                  🌾 Atta
                 </span>
               </SelectItem>
-              <SelectItem value="Besan" className="hover:bg-yellow-50 transition-colors py-4 text-lg rounded-xl m-1">
+              <SelectItem value="Besan" className="hover:bg-yellow-50 transition-colors py-3 text-base rounded-lg m-1">
                 <span className="flex items-center gap-3">
-                  <span className="text-2xl">🟡</span>
-                  Besan
+                  🟡 Besan
                 </span>
               </SelectItem>
-              <SelectItem value="Multigrain" className="hover:bg-green-50 transition-colors py-4 text-lg rounded-xl m-1">
+              <SelectItem value="Multigrain" className="hover:bg-green-50 transition-colors py-3 text-base rounded-lg m-1">
                 <span className="flex items-center gap-3">
-                  <span className="text-2xl">🌿</span>
-                  Multigrain
+                  🌿 Multigrain
                 </span>
               </SelectItem>
-              <SelectItem value="Other" className="hover:bg-gray-50 transition-colors py-4 text-lg rounded-xl m-1">
+              <SelectItem value="Other" className="hover:bg-gray-50 transition-colors py-3 text-base rounded-lg m-1">
                 <span className="flex items-center gap-3">
-                  <span className="text-2xl">📦</span>
-                  Other
+                  📦 Other
                 </span>
               </SelectItem>
             </SelectContent>
           </Select>
         </div>
         
-        <div className="group">
-          <Label className="text-green-700 font-bold mb-3 block group-hover:text-green-800 transition-colors text-lg">
+        <div className="space-y-3">
+          <Label className="text-slate-700 font-semibold text-sm flex items-center gap-2">
             💰 Rate per Kg
           </Label>
-          <div className="border-3 border-green-300 bg-gradient-to-r from-green-100 to-emerald-100 rounded-2xl p-4 text-center h-14 flex items-center justify-center shadow-lg">
+          <div className="h-12 bg-emerald-100 border-2 border-emerald-200 rounded-xl p-3 flex items-center justify-center">
             <div className="flex items-center gap-2">
-              <span className="text-3xl font-bold text-green-700">₹2.00</span>
-              <span className="text-sm text-green-600 font-semibold">Fixed</span>
+              <span className="text-2xl font-bold text-emerald-700">₹2.00</span>
+              <span className="text-sm text-emerald-600 font-medium px-2 py-1 bg-emerald-200 rounded-full">Fixed</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="bg-gradient-to-r from-rose-100 via-pink-100 to-orange-100 p-6 m-4 rounded-3xl border-3 border-rose-300 shadow-2xl transform hover:scale-[1.02] transition-all duration-300 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-50"></div>
-        <div className="text-center relative z-10">
-          <Label className="text-2xl font-bold text-rose-800 block mb-3 flex items-center justify-center gap-3">
-            <span className="text-3xl">💎</span>
+      <div className="bg-gradient-to-r from-pink-100 via-rose-100 to-orange-100 p-6 rounded-2xl border-2 border-pink-200 mt-6 transform hover:scale-[1.02] transition-all duration-300">
+        <div className="text-center">
+          <Label className="text-xl font-bold text-slate-800 block mb-3 flex items-center justify-center gap-3">
+            <span className="text-2xl">💎</span>
             Total Amount
           </Label>
-          <div className="text-5xl font-extrabold bg-gradient-to-r from-rose-600 via-pink-600 to-orange-600 bg-clip-text text-transparent">
+          <div className="text-4xl font-extrabold bg-gradient-to-r from-pink-600 via-rose-600 to-orange-600 bg-clip-text text-transparent">
             ₹{totalPrice.toFixed(2)}
           </div>
         </div>
