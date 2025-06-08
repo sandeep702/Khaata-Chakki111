@@ -3,7 +3,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { CustomerRecord } from '../types/Customer';
-import { DollarSign, TrendingUp, Clock, Coins } from 'lucide-react';
+import { DollarSign, TrendingUp, Clock, Coins, FileText, Calendar, User } from 'lucide-react';
 
 interface AmountSectionProps {
   records: CustomerRecord[];
@@ -16,9 +16,19 @@ const AmountSection: React.FC<AmountSectionProps> = ({ records, totalRevenue }) 
   const paidAmount = paidTransactions.reduce((sum, record) => sum + record.totalPrice, 0);
   const pendingAmount = pendingTransactions.reduce((sum, record) => sum + record.totalPrice, 0);
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
   return (
     <div className="space-y-8">
-      {/* Warm Revenue Cards */}
+      {/* Revenue Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="border-0 bg-gradient-to-br from-rose-400 to-pink-500 text-white shadow-xl transform hover:scale-105 transition-all duration-300 hover:shadow-2xl">
           <CardHeader className="pb-3">
@@ -60,56 +70,91 @@ const AmountSection: React.FC<AmountSectionProps> = ({ records, totalRevenue }) 
         </Card>
       </div>
 
-      {/* Transaction List */}
-      <Card className="border-0 bg-gradient-to-br from-white to-gray-50 shadow-xl">
-        <CardHeader className="bg-gradient-to-r from-gray-100 to-slate-100 border-b border-gray-200 rounded-t-lg">
+      {/* Interactive Transaction History */}
+      <Card className="border-0 bg-white shadow-xl rounded-2xl overflow-hidden">
+        <CardHeader className="bg-gradient-to-r from-slate-50 to-gray-100 border-b border-gray-200 p-6">
           <CardTitle className="text-2xl text-gray-800 flex items-center gap-3">
-            <span className="text-3xl">📝</span>
+            <div className="bg-blue-600 text-white rounded-xl w-12 h-12 flex items-center justify-center">
+              <FileText size={24} />
+            </div>
             Transaction History
           </CardTitle>
         </CardHeader>
         <CardContent className="p-0">
           {records.length === 0 ? (
             <div className="text-center py-20 text-gray-500">
-              <div className="text-9xl mb-8 opacity-40">🌾</div>
-              <p className="text-3xl font-bold mb-4">No Records Yet</p>
-              <p className="text-xl">Add your first customer to get started</p>
+              <div className="text-6xl mb-6">📝</div>
+              <p className="text-2xl font-bold mb-2">No Transactions Yet</p>
+              <p className="text-lg text-gray-400">Add your first customer to get started</p>
             </div>
           ) : (
             <div className="max-h-96 overflow-y-auto">
-              {records.slice().reverse().map((record) => (
-                <div key={record.customerId} className="flex justify-between items-center p-6 border-b border-gray-100 hover:bg-gradient-to-r hover:from-rose-50 hover:to-pink-50 transition-all duration-300 group">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-4 mb-3">
-                      <div className="bg-gradient-to-r from-rose-400 to-pink-500 text-white rounded-full w-14 h-14 flex items-center justify-center font-bold text-lg shadow-lg">
-                        {record.customerId}
-                      </div>
-                      <div>
-                        <span className="font-bold text-xl text-gray-800">{record.customerName}</span>
-                        <div className="flex items-center gap-3 mt-2">
-                          <Badge variant={record.customerType === 'Regular' ? 'default' : 'secondary'} className="text-sm px-3 py-1">
-                            {record.customerType === 'Regular' ? '⭐' : '🕐'} {record.customerType}
+              {records.slice().reverse().map((record, index) => (
+                <div 
+                  key={`${record.customerId}-${index}`} 
+                  className="flex items-center justify-between p-6 border-b border-gray-100 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 transition-all duration-300 group cursor-pointer"
+                >
+                  <div className="flex items-center gap-4 flex-1">
+                    {/* Customer ID Circle */}
+                    <div className="bg-gradient-to-br from-pink-400 to-rose-500 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
+                      {record.customerId}
+                    </div>
+                    
+                    {/* Customer Info */}
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        <h3 className="font-bold text-lg text-gray-800 group-hover:text-indigo-800 transition-colors">
+                          {record.customerName}
+                        </h3>
+                        <div className="flex gap-2">
+                          <Badge 
+                            variant={record.customerType === 'Regular' ? 'default' : 'secondary'} 
+                            className={`text-xs px-2 py-1 ${
+                              record.customerType === 'Regular' 
+                                ? 'bg-blue-100 text-blue-800 border-blue-200' 
+                                : 'bg-orange-100 text-orange-800 border-orange-200'
+                            }`}
+                          >
+                            <User size={12} className="mr-1" />
+                            {record.customerType}
                           </Badge>
                           <Badge 
                             variant={record.isReady ? 'default' : 'secondary'} 
-                            className={`text-sm px-3 py-1 ${record.isReady ? 'bg-emerald-500' : 'bg-orange-500'}`}
+                            className={`text-xs px-2 py-1 ${
+                              record.isReady 
+                                ? 'bg-green-100 text-green-800 border-green-200' 
+                                : 'bg-yellow-100 text-yellow-800 border-yellow-200'
+                            }`}
                           >
                             {record.isReady ? '✅ Ready' : '⏳ Processing'}
                           </Badge>
                         </div>
                       </div>
+                      
+                      <div className="flex items-center gap-4 text-sm text-gray-600">
+                        <span className="font-medium">{record.wheatWeight}kg {record.flourType}</span>
+                        <span className="text-gray-400">@</span>
+                        <span className="font-medium">₹{record.ratePerKg}/kg</span>
+                        <div className="flex items-center gap-1 text-xs text-gray-500">
+                          <Calendar size={12} />
+                          <span>{formatDate(record.createdAt)}</span>
+                        </div>
+                      </div>
                     </div>
-                    <p className="text-sm text-gray-600 font-medium">
-                      {record.wheatWeight}kg {record.flourType} @ ₹{record.ratePerKg}/kg
-                    </p>
                   </div>
-                  <div className="text-right">
-                    <p className="font-bold text-3xl bg-gradient-to-r from-rose-600 to-pink-600 bg-clip-text text-transparent mb-2">
+                  
+                  {/* Amount and Payment Status */}
+                  <div className="text-right flex flex-col items-end gap-2">
+                    <div className="text-2xl font-bold text-pink-600 group-hover:scale-110 transition-transform duration-300">
                       ₹{record.totalPrice.toFixed(2)}
-                    </p>
+                    </div>
                     <Badge 
                       variant={record.paymentStatus === 'Paid' ? 'default' : 'destructive'} 
-                      className={`text-sm px-4 py-2 ${record.paymentStatus === 'Paid' ? 'bg-emerald-500' : 'bg-red-500'}`}
+                      className={`text-xs px-3 py-1 font-medium ${
+                        record.paymentStatus === 'Paid' 
+                          ? 'bg-green-500 text-white hover:bg-green-600' 
+                          : 'bg-red-500 text-white hover:bg-red-600'
+                      } transition-colors duration-300`}
                     >
                       {record.paymentStatus === 'Paid' ? '💰 Paid' : '⏰ Pending'}
                     </Badge>

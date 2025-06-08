@@ -14,7 +14,7 @@ interface CustomerRecordsProps {
 }
 
 const CustomerRecords: React.FC<CustomerRecordsProps> = ({ records, onUpdate }) => {
-  const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards');
+  const [viewMode, setViewMode] = useState<'table' | 'cards'>('table'); // Changed default to table
   const [editingCustomer, setEditingCustomer] = useState<CustomerRecord | null>(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
@@ -89,15 +89,6 @@ const CustomerRecords: React.FC<CustomerRecordsProps> = ({ records, onUpdate }) 
         
         <div className="flex gap-2 bg-white rounded-lg p-1 border border-amber-200">
           <Button
-            variant={viewMode === 'cards' ? 'default' : 'ghost'}
-            size="sm"
-            onClick={() => setViewMode('cards')}
-            className={`transition-all duration-200 ${viewMode === 'cards' ? 'bg-amber-600 text-white' : 'hover:bg-amber-50'}`}
-          >
-            <LayoutGrid size={16} className="mr-1" />
-            Cards
-          </Button>
-          <Button
             variant={viewMode === 'table' ? 'default' : 'ghost'}
             size="sm"
             onClick={() => setViewMode('table')}
@@ -106,10 +97,94 @@ const CustomerRecords: React.FC<CustomerRecordsProps> = ({ records, onUpdate }) 
             <List size={16} className="mr-1" />
             Table
           </Button>
+          <Button
+            variant={viewMode === 'cards' ? 'default' : 'ghost'}
+            size="sm"
+            onClick={() => setViewMode('cards')}
+            className={`transition-all duration-200 ${viewMode === 'cards' ? 'bg-amber-600 text-white' : 'hover:bg-amber-50'}`}
+          >
+            <LayoutGrid size={16} className="mr-1" />
+            Cards
+          </Button>
         </div>
       </div>
 
-      {viewMode === 'cards' ? (
+      {viewMode === 'table' ? (
+        <div className="overflow-x-auto max-h-96 border-2 border-amber-200 rounded-lg">
+          <table className="w-full text-sm border-collapse bg-white">
+            <thead className="bg-gradient-to-r from-amber-100 to-orange-100 sticky top-0 z-10">
+              <tr>
+                <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">ID</th>
+                <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Customer</th>
+                <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Type</th>
+                <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Weight</th>
+                <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Flour</th>
+                <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Rate</th>
+                <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Total</th>
+                <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Payment</th>
+                <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Status</th>
+                <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Date Added</th>
+                <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {records.slice().reverse().map((record, index) => (
+                <tr key={`${record.customerId}-${index}`} className="hover:bg-amber-50 transition-colors duration-200">
+                  <td className="border border-amber-200 p-3 font-bold text-amber-700">{record.customerId}</td>
+                  <td className="border border-amber-200 p-3 font-medium">{record.customerName}</td>
+                  <td className="border border-amber-200 p-3">
+                    <Badge variant={record.customerType === 'Regular' ? 'default' : 'secondary'} className="text-xs">
+                      {record.customerType === 'Regular' ? '👤' : '⏰'} {record.customerType}
+                    </Badge>
+                  </td>
+                  <td className="border border-amber-200 p-3 font-medium">{record.wheatWeight} kg</td>
+                  <td className="border border-amber-200 p-3">{record.flourType}</td>
+                  <td className="border border-amber-200 p-3 font-medium">₹{record.ratePerKg}</td>
+                  <td className="border border-amber-200 p-3 font-bold text-green-700">₹{record.totalPrice.toFixed(2)}</td>
+                  <td className="border border-amber-200 p-3">
+                    <Badge variant={record.paymentStatus === 'Paid' ? 'default' : 'destructive'} className="text-xs">
+                      {record.paymentStatus === 'Paid' ? '✅' : '⏳'} {record.paymentStatus}
+                    </Badge>
+                  </td>
+                  <td className="border border-amber-200 p-3">
+                    <Badge 
+                      variant={record.isReady ? 'default' : 'secondary'} 
+                      className={`text-xs ${record.isReady ? 'bg-green-600' : 'bg-orange-500 text-white'}`}
+                    >
+                      {record.isReady ? '✅ Ready' : '⏳ Processing'}
+                    </Badge>
+                  </td>
+                  <td className="border border-amber-200 p-3 text-xs">
+                    <div className="flex items-center gap-1">
+                      <Calendar size={12} className="text-slate-500" />
+                      <span>{formatDate(record.createdAt)}</span>
+                    </div>
+                  </td>
+                  <td className="border border-amber-200 p-3">
+                    <div className="flex gap-1">
+                      <Button
+                        size="sm"
+                        onClick={() => handleEdit(record)}
+                        className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-2 py-1 h-7 transition-all duration-200 hover:scale-105"
+                      >
+                        <Edit size={12} className="mr-1" />
+                        Edit
+                      </Button>
+                      <Button
+                        size="sm"
+                        onClick={() => handleDelete(record)}
+                        className="bg-red-600 hover:bg-red-700 text-white text-xs px-2 py-1 h-7 transition-all duration-200 hover:scale-105"
+                      >
+                        <Trash2 size={12} />
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-h-96 overflow-y-auto pr-2">
           {records.slice().reverse().map((record, index) => (
             <Card 
@@ -191,81 +266,6 @@ const CustomerRecords: React.FC<CustomerRecordsProps> = ({ records, onUpdate }) 
               </CardContent>
             </Card>
           ))}
-        </div>
-      ) : (
-        <div className="overflow-x-auto max-h-96 border-2 border-amber-200 rounded-lg">
-          <table className="w-full text-sm border-collapse bg-white">
-            <thead className="bg-gradient-to-r from-amber-100 to-orange-100 sticky top-0 z-10">
-              <tr>
-                <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">ID</th>
-                <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Customer</th>
-                <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Type</th>
-                <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Weight</th>
-                <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Flour</th>
-                <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Rate</th>
-                <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Total</th>
-                <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Payment</th>
-                <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Status</th>
-                <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Date Added</th>
-                <th className="border border-amber-200 p-3 text-left font-bold text-amber-800">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {records.slice().reverse().map((record, index) => (
-                <tr key={`${record.customerId}-${index}`} className="hover:bg-amber-50 transition-colors duration-200">
-                  <td className="border border-amber-200 p-3 font-bold text-amber-700">{record.customerId}</td>
-                  <td className="border border-amber-200 p-3 font-medium">{record.customerName}</td>
-                  <td className="border border-amber-200 p-3">
-                    <Badge variant={record.customerType === 'Regular' ? 'default' : 'secondary'} className="text-xs">
-                      {record.customerType === 'Regular' ? '👤' : '⏰'} {record.customerType}
-                    </Badge>
-                  </td>
-                  <td className="border border-amber-200 p-3 font-medium">{record.wheatWeight} kg</td>
-                  <td className="border border-amber-200 p-3">{record.flourType}</td>
-                  <td className="border border-amber-200 p-3 font-medium">₹{record.ratePerKg}</td>
-                  <td className="border border-amber-200 p-3 font-bold text-green-700">₹{record.totalPrice.toFixed(2)}</td>
-                  <td className="border border-amber-200 p-3">
-                    <Badge variant={record.paymentStatus === 'Paid' ? 'default' : 'destructive'} className="text-xs">
-                      {record.paymentStatus === 'Paid' ? '✅' : '⏳'} {record.paymentStatus}
-                    </Badge>
-                  </td>
-                  <td className="border border-amber-200 p-3">
-                    <Badge 
-                      variant={record.isReady ? 'default' : 'secondary'} 
-                      className={`text-xs ${record.isReady ? 'bg-green-600' : 'bg-orange-500 text-white'}`}
-                    >
-                      {record.isReady ? '✅ Ready' : '⏳ Processing'}
-                    </Badge>
-                  </td>
-                  <td className="border border-amber-200 p-3 text-xs">
-                    <div className="flex items-center gap-1">
-                      <Calendar size={12} className="text-slate-500" />
-                      <span>{formatDate(record.createdAt)}</span>
-                    </div>
-                  </td>
-                  <td className="border border-amber-200 p-3">
-                    <div className="flex gap-1">
-                      <Button
-                        size="sm"
-                        onClick={() => handleEdit(record)}
-                        className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-2 py-1 h-7 transition-all duration-200 hover:scale-105"
-                      >
-                        <Edit size={12} className="mr-1" />
-                        Edit
-                      </Button>
-                      <Button
-                        size="sm"
-                        onClick={() => handleDelete(record)}
-                        className="bg-red-600 hover:bg-red-700 text-white text-xs px-2 py-1 h-7 transition-all duration-200 hover:scale-105"
-                      >
-                        <Trash2 size={12} />
-                      </Button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
         </div>
       )}
 

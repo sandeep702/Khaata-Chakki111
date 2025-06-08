@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import CustomerForm from '../components/CustomerForm';
 import CustomerRecords from '../components/CustomerRecords';
@@ -18,6 +17,7 @@ import { Button } from '@/components/ui/button';
 
 const Index = () => {
   const { user, signOut } = useAuth();
+  
   const [records, setRecords] = useState<CustomerRecord[]>([]);
   const [searchResults, setSearchResults] = useState<CustomerRecord[]>([]);
   const [totalRevenue, setTotalRevenue] = useState(0);
@@ -109,6 +109,17 @@ const Index = () => {
     } catch (error) {
       toast.error('Failed to logout');
     }
+  };
+
+  // Get username from email or user metadata
+  const getUserDisplayName = () => {
+    if (user?.user_metadata?.full_name) {
+      return user.user_metadata.full_name;
+    }
+    if (user?.email) {
+      return user.email.split('@')[0]; // Extract username from email
+    }
+    return 'User';
   };
 
   const tabs = [
@@ -220,7 +231,7 @@ const Index = () => {
               {/* User Info Card */}
               <div className="bg-white/20 backdrop-blur-sm border border-white/30 rounded-2xl p-4 text-center min-w-[200px]">
                 <p className="text-white font-bold mb-1 text-sm">Welcome back!</p>
-                <p className="text-indigo-100 text-xs mb-3 truncate">{user?.email}</p>
+                <p className="text-indigo-100 text-xs mb-3 truncate">{getUserDisplayName()}</p>
                 <Button
                   onClick={handleLogout}
                   variant="outline"
