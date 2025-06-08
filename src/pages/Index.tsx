@@ -112,10 +112,10 @@ const Index = () => {
   };
 
   const tabs = [
-    { id: 'new-customer', label: 'New Customer', icon: Plus, color: 'from-emerald-400 to-teal-500' },
-    { id: 'search', label: 'Search', icon: Search, color: 'from-blue-400 to-indigo-500' },
-    { id: 'records', label: 'Records', icon: Database, color: 'from-purple-400 to-violet-500' },
-    { id: 'analytics', label: 'Analytics', icon: TrendingUp, color: 'from-orange-400 to-red-500' }
+    { id: 'new-customer', label: 'New Customer', icon: Plus, color: 'from-blue-500 to-cyan-500' },
+    { id: 'search', label: 'Search', icon: Search, color: 'from-purple-500 to-pink-500' },
+    { id: 'records', label: 'Records', icon: Database, color: 'from-green-500 to-emerald-500' },
+    { id: 'analytics', label: 'Analytics', icon: TrendingUp, color: 'from-orange-500 to-red-500' }
   ];
 
   const stats = [
@@ -123,33 +123,33 @@ const Index = () => {
       title: 'Total Customers', 
       value: records.length.toString(), 
       icon: Users, 
-      gradient: 'from-cyan-400 to-blue-500',
-      bgGradient: 'from-cyan-50 to-blue-100',
-      
+      gradient: 'from-blue-500 to-indigo-600',
+      bgColor: 'bg-blue-50',
+      textColor: 'text-blue-700'
     },
     { 
       title: 'Total Revenue', 
       value: `₹${totalRevenue.toFixed(2)}`, 
       icon: TrendingUp, 
-      gradient: 'from-emerald-400 to-green-500',
-      bgGradient: 'from-emerald-50 to-green-100',
-    
+      gradient: 'from-green-500 to-emerald-600',
+      bgColor: 'bg-green-50',
+      textColor: 'text-green-700'
     },
     { 
       title: 'Ready Orders', 
       value: records.filter(r => r.isReady).length.toString(), 
       icon: Clock, 
-      gradient: 'from-amber-400 to-orange-500',
-      bgGradient: 'from-amber-50 to-orange-100',
-      
+      gradient: 'from-amber-500 to-orange-600',
+      bgColor: 'bg-amber-50',
+      textColor: 'text-amber-700'
     },
     { 
       title: 'Active Mills', 
       value: '1', 
       icon: MapPin, 
-      gradient: 'from-pink-400 to-rose-500',
-      bgGradient: 'from-pink-50 to-rose-100',
-      
+      gradient: 'from-purple-500 to-violet-600',
+      bgColor: 'bg-purple-50',
+      textColor: 'text-purple-700'
     }
   ];
 
@@ -158,11 +158,10 @@ const Index = () => {
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center">
           <div className="relative">
-            <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-indigo-600 mx-auto mb-6"></div>
-            <div className="absolute inset-0 rounded-full h-32 w-32 border-r-4 border-purple-400 animate-ping mx-auto"></div>
+            <div className="animate-spin rounded-full h-24 w-24 border-b-4 border-indigo-600 mx-auto mb-4"></div>
+            <div className="absolute inset-0 rounded-full h-24 w-24 border-r-4 border-purple-400 animate-ping mx-auto"></div>
           </div>
-          <p className="text-2xl font-bold text-slate-700">Loading your workspace...</p>
-          <p className="text-slate-500 mt-2">Preparing everything for you</p>
+          <p className="text-xl font-semibold text-slate-700">Loading...</p>
         </div>
       </div>
     );
@@ -238,104 +237,103 @@ const Index = () => {
       </header>
 
       <div className="max-w-7xl mx-auto px-6 py-8">
-        {/* Enhanced Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 -mt-12 relative z-20">
+        {/* Interactive Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {stats.map((stat, index) => (
-            <div key={index} className="group cursor-pointer transform transition-all duration-500 hover:scale-105">
-              <div className={`bg-gradient-to-br ${stat.bgGradient} rounded-3xl p-6 shadow-xl border border-white/50 hover:shadow-2xl transition-all duration-500 relative overflow-hidden`}>
-                {/* Background Pattern */}
-                <div className="absolute inset-0 opacity-5">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-black rounded-full -translate-y-16 translate-x-16"></div>
+            <div 
+              key={index} 
+              className={`${stat.bgColor} rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer group border border-white/50`}
+            >
+              <div className="flex items-center justify-between mb-4">
+                <div className={`w-12 h-12 bg-gradient-to-br ${stat.gradient} rounded-xl flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300`}>
+                  <stat.icon className="text-white" size={24} />
                 </div>
-                
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className={`w-12 h-12 bg-gradient-to-br ${stat.gradient} rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-12 transition-all duration-300`}>
-                      <stat.icon className="text-white" size={20} />
-                    </div>
-                    <div className="text-right">
-                      <div className="text-2xl font-black text-slate-800 group-hover:scale-110 transition-transform">
-                        {stat.value}
-                      </div>
-                     
-                    </div>
-                  </div>
-                  <div className="text-slate-700 font-bold text-base">{stat.title}</div>
-                  <div className="w-full bg-white/60 rounded-full h-2 mt-3">
-                    <div className={`bg-gradient-to-r ${stat.gradient} h-2 rounded-full transition-all duration-1000 group-hover:w-full`} 
-                         style={{ width: '70%' }}></div>
-                  </div>
+                <div className={`text-3xl font-bold ${stat.textColor} group-hover:scale-110 transition-transform duration-300`}>
+                  {stat.value}
                 </div>
+              </div>
+              <h3 className={`font-semibold ${stat.textColor} text-lg`}>{stat.title}</h3>
+              <div className="mt-3 w-full bg-white/60 rounded-full h-2">
+                <div className={`bg-gradient-to-r ${stat.gradient} h-2 rounded-full transition-all duration-1000 group-hover:w-full`} 
+                     style={{ width: '65%' }}></div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Modern Tab Navigation */}
-        <div className="bg-white rounded-3xl shadow-xl border border-slate-200/50 mb-8 overflow-hidden">
-          <div className="flex overflow-x-auto scrollbar-hide">
+        {/* Interactive Tab Navigation */}
+        <div className="bg-white rounded-2xl shadow-xl border border-slate-200/50 mb-8 overflow-hidden">
+          <div className="flex overflow-x-auto">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-3 px-8 py-6 font-bold transition-all duration-300 relative min-w-0 flex-1 ${
+                className={`flex items-center gap-3 px-8 py-6 font-semibold transition-all duration-300 relative min-w-0 flex-1 group ${
                   activeTab === tab.id
                     ? 'text-white'
                     : 'text-slate-600 hover:text-slate-800 hover:bg-slate-50'
                 }`}
               >
                 {activeTab === tab.id && (
-                  <>
-                    <div className={`absolute inset-0 bg-gradient-to-r ${tab.color} transition-all duration-500`}></div>
-                    <div className="absolute inset-0 bg-black/10"></div>
-                  </>
+                  <div className={`absolute inset-0 bg-gradient-to-r ${tab.color} transition-all duration-300`}></div>
                 )}
                 <div className="relative z-10 flex items-center gap-3">
-                  <tab.icon size={22} className={activeTab === tab.id ? 'animate-pulse' : ''} />
-                  <span className="text-lg font-bold">{tab.label}</span>
+                  <tab.icon size={20} className={activeTab === tab.id ? 'animate-pulse' : 'group-hover:scale-110 transition-transform'} />
+                  <span className="font-bold">{tab.label}</span>
                 </div>
+                {activeTab !== tab.id && (
+                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-1 bg-gradient-to-r from-slate-400 to-slate-600 group-hover:w-full transition-all duration-300"></div>
+                )}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Tab Content with Enhanced Cards */}
+        {/* Enhanced Tab Content */}
         <div className="space-y-8">
           {activeTab === 'new-customer' && (
-            <div className="bg-white rounded-3xl shadow-xl border border-slate-200/50 overflow-hidden">
-              <div className="bg-gradient-to-r from-emerald-400 to-teal-500 px-8 py-8 relative overflow-hidden">
+            <div className="bg-white rounded-2xl shadow-xl border border-slate-200/50 overflow-hidden transform transition-all duration-500 animate-fade-in">
+              <div className="bg-gradient-to-r from-blue-500 to-cyan-500 px-8 py-6 relative overflow-hidden">
                 <div className="absolute inset-0 bg-black/10"></div>
+                <div className="absolute inset-0 opacity-20">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-full -translate-y-16 translate-x-16"></div>
+                  <div className="absolute bottom-0 left-0 w-24 h-24 bg-white rounded-full translate-y-12 -translate-x-12"></div>
+                </div>
                 <div className="relative z-10 flex items-center gap-4 text-white">
-                  <div className="w-14 h-14 bg-white/20 rounded-3xl flex items-center justify-center backdrop-blur-sm">
-                    <Plus size={32} />
+                  <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                    <Plus size={28} />
                   </div>
                   <div>
-                    <h2 className="text-4xl font-black mb-2">Add New Customer</h2>
-                    <p className="text-emerald-100 text-xl font-semibold">Create a fresh customer record with ease</p>
+                    <h2 className="text-3xl font-bold mb-1">Add New Customer</h2>
+                    <p className="text-blue-100 font-medium">Create a fresh customer record</p>
                   </div>
                 </div>
               </div>
-              <div className="p-8 bg-gradient-to-br from-emerald-50/50 to-teal-50/50">
+              <div className="p-8 bg-gradient-to-br from-blue-50/50 to-cyan-50/50">
                 <CustomerForm onSave={handleSaveRecord} />
               </div>
             </div>
           )}
 
           {activeTab === 'search' && (
-            <div className="bg-white rounded-3xl shadow-xl border border-slate-200/50 overflow-hidden">
-              <div className="bg-gradient-to-r from-blue-400 to-indigo-500 px-8 py-8 relative overflow-hidden">
+            <div className="bg-white rounded-2xl shadow-xl border border-slate-200/50 overflow-hidden transform transition-all duration-500 animate-fade-in">
+              <div className="bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-6 relative overflow-hidden">
                 <div className="absolute inset-0 bg-black/10"></div>
+                <div className="absolute inset-0 opacity-20">
+                  <div className="absolute top-0 left-0 w-28 h-28 bg-white rounded-full -translate-y-14 -translate-x-14"></div>
+                  <div className="absolute bottom-0 right-0 w-20 h-20 bg-white rounded-full translate-y-10 translate-x-10"></div>
+                </div>
                 <div className="relative z-10 flex items-center gap-4 text-white">
-                  <div className="w-14 h-14 bg-white/20 rounded-3xl flex items-center justify-center backdrop-blur-sm">
-                    <Search size={32} />
+                  <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                    <Search size={28} />
                   </div>
                   <div>
-                    <h2 className="text-4xl font-black mb-2">Search Customers</h2>
-                    <p className="text-blue-100 text-xl font-semibold">Find and manage existing customer records</p>
+                    <h2 className="text-3xl font-bold mb-1">Search Customers</h2>
+                    <p className="text-purple-100 font-medium">Find and manage existing records</p>
                   </div>
                 </div>
               </div>
-              <div className="p-8 bg-gradient-to-br from-blue-50/50 to-indigo-50/50">
+              <div className="p-8 bg-gradient-to-br from-purple-50/50 to-pink-50/50">
                 <SearchCustomer 
                   onSearch={handleSearchCustomer} 
                   searchResults={searchResults} 
@@ -346,36 +344,44 @@ const Index = () => {
           )}
 
           {activeTab === 'records' && (
-            <div className="bg-white rounded-3xl shadow-xl border border-slate-200/50 overflow-hidden">
-              <div className="bg-gradient-to-r from-purple-400 to-violet-500 px-8 py-8 relative overflow-hidden">
+            <div className="bg-white rounded-2xl shadow-xl border border-slate-200/50 overflow-hidden transform transition-all duration-500 animate-fade-in">
+              <div className="bg-gradient-to-r from-green-500 to-emerald-500 px-8 py-6 relative overflow-hidden">
                 <div className="absolute inset-0 bg-black/10"></div>
+                <div className="absolute inset-0 opacity-20">
+                  <div className="absolute top-0 right-0 w-36 h-36 bg-white rounded-full -translate-y-18 translate-x-18"></div>
+                  <div className="absolute bottom-0 left-0 w-16 h-16 bg-white rounded-full translate-y-8 -translate-x-8"></div>
+                </div>
                 <div className="relative z-10 flex items-center gap-4 text-white">
-                  <div className="w-14 h-14 bg-white/20 rounded-3xl flex items-center justify-center backdrop-blur-sm">
-                    <Database size={32} />
+                  <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                    <Database size={28} />
                   </div>
                   <div>
-                    <h2 className="text-4xl font-black mb-2">Customer Records</h2>
-                    <p className="text-purple-100 text-xl font-semibold">Complete customer database and history</p>
+                    <h2 className="text-3xl font-bold mb-1">Customer Records</h2>
+                    <p className="text-green-100 font-medium">Complete database and history</p>
                   </div>
                 </div>
               </div>
-              <div className="p-8 bg-gradient-to-br from-purple-50/50 to-violet-50/50">
+              <div className="p-8 bg-gradient-to-br from-green-50/50 to-emerald-50/50">
                 <CustomerRecords records={records} onUpdate={handleUpdateRecords} />
               </div>
             </div>
           )}
 
           {activeTab === 'analytics' && (
-            <div className="bg-white rounded-3xl shadow-xl border border-slate-200/50 overflow-hidden">
-              <div className="bg-gradient-to-r from-orange-400 to-red-500 px-8 py-8 relative overflow-hidden">
+            <div className="bg-white rounded-2xl shadow-xl border border-slate-200/50 overflow-hidden transform transition-all duration-500 animate-fade-in">
+              <div className="bg-gradient-to-r from-orange-500 to-red-500 px-8 py-6 relative overflow-hidden">
                 <div className="absolute inset-0 bg-black/10"></div>
+                <div className="absolute inset-0 opacity-20">
+                  <div className="absolute top-0 left-0 w-24 h-24 bg-white rounded-full -translate-y-12 -translate-x-12"></div>
+                  <div className="absolute bottom-0 right-0 w-32 h-32 bg-white rounded-full translate-y-16 translate-x-16"></div>
+                </div>
                 <div className="relative z-10 flex items-center gap-4 text-white">
-                  <div className="w-14 h-14 bg-white/20 rounded-3xl flex items-center justify-center backdrop-blur-sm">
-                    <TrendingUp size={32} />
+                  <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                    <TrendingUp size={28} />
                   </div>
                   <div>
-                    <h2 className="text-4xl font-black mb-2">Financial Analytics</h2>
-                    <p className="text-orange-100 text-xl font-semibold">Revenue insights and business metrics</p>
+                    <h2 className="text-3xl font-bold mb-1">Analytics & Transactions</h2>
+                    <p className="text-orange-100 font-medium">Revenue insights and business metrics</p>
                   </div>
                 </div>
               </div>
